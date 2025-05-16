@@ -17,4 +17,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// rota teste
+Route::get('/bungalow-search', function(){
+    return view('bungalow.teste');
+});
+
 require __DIR__.'/auth.php';
