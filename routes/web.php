@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\BungalowController;
+use App\Http\Controllers\LocacaoController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,9 +19,22 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// rota teste
-Route::get('/bungalow-search', function(){
-    return view('bungalow.teste');
+//rotas gerais
+Route::resources([
+    'bungalow'=>BungalowController::class,
+    'locacao'=>LocacaoController::class,
+]);
+
+
+//rota home page
+Route::get('/home', function(){
+    return view('bungalow.home');
 });
+
+//rota show bungalows
+//Route::get('/show', function(){
+  //  return view('bungalow.bungalow-show');
+//});
+
 
 require __DIR__.'/auth.php';

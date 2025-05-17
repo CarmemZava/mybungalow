@@ -22,6 +22,14 @@
             font-style: normal;
             font-size: 40px;
         }
+
+        .sacramento-regular2 {
+            font-family: "Sacramento", cursive;
+            font-weight: 400;
+            font-style: normal;
+            font-size: 35px;
+            text-align: center;
+        }
     </style>
 
 
@@ -31,7 +39,7 @@
 <body>
 
     <div class="bg-white">
-        <header class="absolute inset-x-0 top-0 z-50">
+        <header class="fixed inset-x-0 top-0 z-50 bg-white shadow">
             <nav class="flex items-center justify-between p-3 lg:px-8" aria-label="Global">
                 <div class="flex items-center lg:flex-1 space-x-1">
                     <a href="#" class="-m-1.5 p-1.5">
@@ -56,21 +64,19 @@
                     </button>
                 </div>
                 <div class="hidden lg:flex gap-x-8 text-[20px] font-semibold text-[#4A575A]">
-                    <a href="#">Home</a>
-                    <a href="#">Booking</a>
+                    <a href="">Home</a>
+                    <a href="{{ route('bungalow.index') }}">Booking</a>
                     <a href="#">Contact</a>
                 </div>
                 <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-                    <a href="#" class="text-sm/2 font-semibold text-gray-900 text-[#4A575A]">Log in <span
+                    <a href="#" class="text-sm/2 font-semibold text-[#4A575A]">Log in <span
                             aria-hidden="true">&rarr;</span></a>
                 </div>
             </nav>
         </header>
-
-
     </div>
 
-    <div>
+    <div class="pt-36 min-h-screen">
         @yield('content')
     </div>
 
