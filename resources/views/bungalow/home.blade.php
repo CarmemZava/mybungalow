@@ -1,37 +1,175 @@
 @extends('layouts.bungalow-layout')
 
+<style>
+  body {
+    background-image: url('{{ asset("images/ondas.png") }}');
+    background-repeat: repeat;
+    background-position: center;
+    background-size: 140px;
+  }
+
+</style>
+
 
 @section('content')
 
-<div class="mx-auto px-4 py-8 max-w-xl my-20">
-        <div class="bg-white shadow-2xl rounded-lg mb-6 tracking-wide" >
-            <div class="md:flex-shrink-0">
-                <img src="https://ik.imagekit.io/q5edmtudmz/post1_fOFO9VDzENE.jpg" alt="mountains" class="w-full h-64 rounded-lg rounded-b-none">
-            </div>
-            <div class="px-4 py-2 mt-2">
-                <h2 class="font-bold text-2xl text-gray-800 tracking-normal">My Amaizing Journey to the Mountains.</h2>
-                    <p class="text-sm text-gray-700 px-2 mr-1">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora reiciendis ad architecto at aut placeat quia, minus dolor praesentium officia maxime deserunt porro amet ab debitis deleniti modi soluta similique...
-                    </p>
-                    <div class="flex items-center justify-between mt-2 mx-6">
-                        <a href="#" class="text-blue-500 text-xs -ml-3 ">Show More</a>
-                        <a href="#" class="flex text-gray-700">
-                            <svg fill="none" viewBox="0 0 24 24" class="w-6 h-6 text-blue-500" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
-                            </svg>
-                            5
-                        </a>
-                    </div>
-                <div class="author flex items-center -ml-3 my-3">
-                    <div class="user-logo">
-                        <img class="w-12 h-12 object-cover rounded-full mx-4  shadow" src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=731&q=80" alt="avatar">
-                    </div>
-                    <h2 class="text-sm tracking-tighter text-gray-900">
-                        <a href="#">By Mohammed Ibrahim</a> <span class="text-gray-600">21 SEP 2015.</span>
-                    </h2>
-                </div>
-            </div>
-        </div>
+<!-- component -->
+<div class="flex mt-16 w-full flex-wrap content-center justify-center p-5" style="background-color: transparent;">
+    <div class="bg-white p-5 rounded-xl shadow-md">
+  <div class="grid grid-cols-2 gap-3">
+    <div class="w-80 bg-white p-3">
+      <img class="h-52 w-full object-cover" src="{{ asset('images/bungalow1.jpg') }}" />
+      <ul class="mt-3 flex flex-wrap">
+        <li class="mr-auto">
+          <a href="#" class="flex text-gray-400 hover:text-gray-600">
+            <svg class="mr-0.5" style="width:24px;height:24px" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M21,12L14,5V9C7,10 4,15 3,20C5.5,16.5 9,14.9 14,14.9V19L21,12Z" />
+            </svg>
+            1
+          </a>
+        </li>
+        <li class="mr-2">
+          <a href="#" class="flex text-gray-400 hover:text-gray-600">
+            <svg class="mr-0.5" style="width:24px;height:24px" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17M12,4.5C7,4.5 2.73,7.61 1,12C2.73,16.39 7,19.5 12,19.5C17,19.5 21.27,16.39 23,12C21.27,7.61 17,4.5 12,4.5Z" />
+            </svg>
+            24
+          </a>
+        </li>
+        <li class="mr-2">
+          <a href="#" class="flex text-gray-400 hover:text-gray-600">
+            <svg class="mr-0.5" style="width:24px;height:24px" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M9,22A1,1 0 0,1 8,21V18H4A2,2 0 0,1 2,16V4C2,2.89 2.9,2 4,2H20A2,2 0 0,1 22,4V16A2,2 0 0,1 20,18H13.9L10.2,21.71C10,21.9 9.75,22 9.5,22V22H9Z" />
+            </svg>
+            3
+          </a>
+        </li>
+        <li>
+          <a href="#" class="flex text-gray-400 hover:text-gray-600">
+            <svg class="mr-0.5" style="width:24px;height:24px" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z" />
+            </svg>
+            3
+          </a>
+        </li>
+      </ul>
     </div>
+
+    <div class="w-80 bg-white p-3">
+      <img class="h-52 w-full object-cover" src="https://i.imgur.com/fjXFX93.jpeg" />
+      <ul class="mt-3 flex flex-wrap">
+        <li class="mr-auto">
+          <a href="#" class="flex text-gray-400 hover:text-gray-600">
+            <svg class="mr-0.5" style="width:24px;height:24px" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M21,12L14,5V9C7,10 4,15 3,20C5.5,16.5 9,14.9 14,14.9V19L21,12Z" />
+            </svg>
+            1
+          </a>
+        </li>
+        <li class="mr-2">
+          <a href="#" class="flex text-gray-400 hover:text-gray-600">
+            <svg class="mr-0.5" style="width:24px;height:24px" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17M12,4.5C7,4.5 2.73,7.61 1,12C2.73,16.39 7,19.5 12,19.5C17,19.5 21.27,16.39 23,12C21.27,7.61 17,4.5 12,4.5Z" />
+            </svg>
+            24
+          </a>
+        </li>
+        <li class="mr-2">
+          <a href="#" class="flex text-gray-400 hover:text-gray-600">
+            <svg class="mr-0.5" style="width:24px;height:24px" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M9,22A1,1 0 0,1 8,21V18H4A2,2 0 0,1 2,16V4C2,2.89 2.9,2 4,2H20A2,2 0 0,1 22,4V16A2,2 0 0,1 20,18H13.9L10.2,21.71C10,21.9 9.75,22 9.5,22V22H9Z" />
+            </svg>
+            3
+          </a>
+        </li>
+        <li>
+          <a href="#" class="flex text-gray-400 hover:text-gray-600">
+            <svg class="mr-0.5" style="width:24px;height:24px" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z" />
+            </svg>
+            3
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="w-80 bg-white p-3">
+      <img class="h-52 w-full object-cover" src="https://i.imgur.com/ISpNf4j.jpeg" />
+      <ul class="mt-3 flex flex-wrap">
+        <li class="mr-auto">
+          <a href="#" class="flex text-gray-400 hover:text-gray-600">
+            <svg class="mr-0.5" style="width:24px;height:24px" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M21,12L14,5V9C7,10 4,15 3,20C5.5,16.5 9,14.9 14,14.9V19L21,12Z" />
+            </svg>
+            1
+          </a>
+        </li>
+        <li class="mr-2">
+          <a href="#" class="flex text-gray-400 hover:text-gray-600">
+            <svg class="mr-0.5" style="width:24px;height:24px" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17M12,4.5C7,4.5 2.73,7.61 1,12C2.73,16.39 7,19.5 12,19.5C17,19.5 21.27,16.39 23,12C21.27,7.61 17,4.5 12,4.5Z" />
+            </svg>
+            24
+          </a>
+        </li>
+        <li class="mr-2">
+          <a href="#" class="flex text-gray-400 hover:text-gray-600">
+            <svg class="mr-0.5" style="width:24px;height:24px" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M9,22A1,1 0 0,1 8,21V18H4A2,2 0 0,1 2,16V4C2,2.89 2.9,2 4,2H20A2,2 0 0,1 22,4V16A2,2 0 0,1 20,18H13.9L10.2,21.71C10,21.9 9.75,22 9.5,22V22H9Z" />
+            </svg>
+            3
+          </a>
+        </li>
+        <li>
+          <a href="#" class="flex text-gray-400 hover:text-gray-600">
+            <svg class="mr-0.5" style="width:24px;height:24px" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z" />
+            </svg>
+            3
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="w-80 bg-white p-3">
+      <img class="h-52 w-full object-cover" src="https://i.imgur.com/DBpznrn.jpeg" />
+      <ul class="mt-3 flex flex-wrap">
+        <li class="mr-auto">
+          <a href="#" class="flex text-gray-400 hover:text-gray-600">
+            <svg class="mr-0.5" style="width:24px;height:24px" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M21,12L14,5V9C7,10 4,15 3,20C5.5,16.5 9,14.9 14,14.9V19L21,12Z" />
+            </svg>
+            1
+          </a>
+        </li>
+        <li class="mr-2">
+          <a href="#" class="flex text-gray-400 hover:text-gray-600">
+            <svg class="mr-0.5" style="width:24px;height:24px" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17M12,4.5C7,4.5 2.73,7.61 1,12C2.73,16.39 7,19.5 12,19.5C17,19.5 21.27,16.39 23,12C21.27,7.61 17,4.5 12,4.5Z" />
+            </svg>
+            24
+          </a>
+        </li>
+        <li class="mr-2">
+          <a href="#" class="flex text-gray-400 hover:text-gray-600">
+            <svg class="mr-0.5" style="width:24px;height:24px" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M9,22A1,1 0 0,1 8,21V18H4A2,2 0 0,1 2,16V4C2,2.89 2.9,2 4,2H20A2,2 0 0,1 22,4V16A2,2 0 0,1 20,18H13.9L10.2,21.71C10,21.9 9.75,22 9.5,22V22H9Z" />
+            </svg>
+            3
+          </a>
+        </li>
+        <li>
+          <a href="#" class="flex text-gray-400 hover:text-gray-600">
+            <svg class="mr-0.5" style="width:24px;height:24px" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z" />
+            </svg>
+            3
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  </div>
+</div>
 
 @endsection

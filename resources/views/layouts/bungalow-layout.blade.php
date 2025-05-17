@@ -64,7 +64,7 @@
                     </button>
                 </div>
                 <div class="hidden lg:flex gap-x-8 text-[20px] font-semibold text-[#4A575A]">
-                    <a href="">Home</a>
+                    <a href="{{ url('/home') }}">Home</a>
                     <a href="{{ route('bungalow.index') }}">Booking</a>
                     <a href="#">Contact</a>
                 </div>
