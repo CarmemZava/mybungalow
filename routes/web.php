@@ -31,6 +31,11 @@ Route::get('/home', function(){
     return view('bungalow.home');
 });
 
+//rota teste
+Route::get('/teste', function(){
+    return view('bungalow.teste');
+});
+
 //rota show bungalows
 //Route::get('/show', function(){
   //  return view('bungalow.bungalow-show');

@@ -56,7 +56,7 @@
     </div>
 
     <div class="w-80 bg-white p-3">
-      <img class="h-52 w-full object-cover" src="https://i.imgur.com/fjXFX93.jpeg" />
+      <img class="h-52 w-full object-cover" src="{{ asset('images/bungalow2.jpg') }}" />
       <ul class="mt-3 flex flex-wrap">
         <li class="mr-auto">
           <a href="#" class="flex text-gray-400 hover:text-gray-600">
