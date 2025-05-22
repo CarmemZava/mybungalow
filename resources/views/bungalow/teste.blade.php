@@ -1,109 +1,129 @@
-<!DOCTYPE html>
-<html lang="en">
+{{-- VIEW DE DETALHES DO BUNGALOW --}}
+@extends('layouts.bungalow-layout')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/css/app.css'])
-    <title>Document</title>
-
-    {{-- Google fonts: logo --}}
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Sacramento&display=swap"
-        rel="stylesheet">
-
-    <style>
-        .fundo {
-            background-image: url('{{ asset('images/ondas.png') }}');
-            background-repeat: repeat;
-            background-position: center;
-            background-size: 140px;
-        }
-
-        .sacramento-regular {
-            font-family: "Sacramento", cursive;
-            font-weight: 400;
-            font-style: normal;
-            font-size: 80px;
-        }
-
-    </style>
-
-</head>
-
-<body>
-    <div class="flex h-screen">
-        <!-- Nav esquerda -->
-        <div class="hidden lg:flex items-center justify-center flex-1 bg-white text-black fundo">
-            <div class="max-w-6xl text-center overflow-y-auto h-[90vh] px-4 py-6">
-                <div class="flex mt-16 w-full flex-wrap content-center justify-center p-5"
-                    style="background-color: transparent;">
-
-
-                    <div class="bg-white p-5 rounded-xl shadow-md">
-                        <div class="flex flex-col items-center gap-2">
-                            <div class="flex flex-col">
-                                <a href="#" class="-m-1.5 p-1.5">
-                                    {{-- logo --}}
-                                    <img class="h-8 w-auto" src="{{ asset('images/logo-bungalow2.png') }}"
-                                        alt="logo" style="height: 360px; width:500px">
-                                </a>
-                            </div>
-                            <div class="flex flex-row space-x-2 items-center sacramento-regular">
-                                <h1 style="color: #4A575A" class="sacramento-regular">My</h1>
-                                <h1 style="color:#7E84F2" class="sacramento-regular">Bungalow</h1>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        </div>
-    </div>
-    <!-- Nav direita -->
-    <div class="w-full bg-gray-100 lg:w-1/2 flex items-center justify-center">
-        <div class="max-w-md w-full p-6">
-            <div class="text-3xl font-semibold mb-6 text-black text-center">
-                <h1>Welcome to MyBungalow </h1>
-                <h1 style="color: #7E84F2"></h1>
-                {{-- <h1 style="color: #4A575A" class="sacramento-regular">My</h1>
-                <h1 style="color:#7E84F2" class="sacramento-regular">Bungalow</h1> --}}
+@section('content')
+    <!-- Centering wrapper -->
+    <div class="flex justify-center pt-3 bg-gray-50">
+        <div
+            class="relative mx-10 overflow-hidden text-white shadow-lg rounded-xl bg-blue-gray-500 bg-clip-border shadow-blue-gray-500/40">
+            <img src="https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1470&amp;q=80"
+                alt="ui/ux review check" />
+            <div
+                class="absolute inset-0 w-full h-full to-bg-black-10 bg-gradient-to-tr from-transparent via-transparent to-black/60">
             </div>
-            {{-- <h1 class="text-3xl font-semibold mb-6 text-black text-center">Welcome to MyBungalow</h1> --}}
-            <h1 class="text-sm font-semibold mb-6 text-gray-500 text-center">Join to Our Community with all time
-                access and free </h1>
-
-            <form action="#" method="POST" class="space-y-4">
-                <!-- Your form elements go here -->
-                <div>
-                    <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
-                    <input type="text" id="username" name="username"
-                        class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300">
-                </div>
-                <div>
-                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                    <input type="text" id="email" name="email"
-                        class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300">
-                </div>
-                <div>
-                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                    <input type="password" id="password" name="password"
-                        class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300">
-                </div>
-                <div>
-                    <button type="submit"
-                        class="w-full bg-black text-white p-2 rounded-md hover:bg-gray-800 focus:outline-none focus:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300">Sign
-                        Up</button>
-                </div>
-            </form>
-            <div class="mt-4 text-sm text-gray-600 text-center">
-                <p>Already have an account? <a href="#" class="text-black hover:underline">Login here</a>
-                </p>
-            </div>
+            <button
+                class="!absolute top-4 right-4 h-8 max-h-[32px] w-8 max-w-[32px] select-none rounded-full text-center align-middle font-sans text-xs font-medium uppercase text-red-500 transition-all hover:bg-red-500/10 active:bg-red-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                type="button">
+                <span class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                        <path
+                            d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z">
+                        </path>
+                    </svg>
+                </span>
+            </button>
         </div>
-    </div>
-    </div>
-</body>
+        <div class="p-6">
+            <div class="flex items-center justify-between mb-3">
+                <h5 class="block font-sans text-xl antialiased font-medium leading-snug tracking-normal text-blue-gray-900">
+                    Wooden House, Florida
+                </h5>
+            </div>
+            <p class="mr-5 block font-sans text-base antialiased font-light leading-relaxed text-gray-700">
+                Enter a freshly updated and thoughtfully furnished peaceful home surrounded by ancient trees, stone
+                walls, and open meadows.
+            </p>
+            {{-- COMEÇA --}}
+            <div class="inline-flex flex-wrap items-center gap-3 mt-8 group">
+                {{-- Permite Animais --}}
+                <div
+                    class="cursor-pointer rounded-full border border-gray-900/5 bg-gray-900/5 p-4 w-12 h-12 flex items-center justify-center text-gray-900 transition-colors hover:border-gray-900/10 hover:bg-gray-900/10 hover:!opacity-100 group-hover:opacity-70">
+                    <i class="fa-solid fa-paw" title="Pet-friendly"></i>
+                </div>
+                {{-- TV --}}
+                <div
+                    class="cursor-pointer rounded-full border border-gray-900/5 bg-gray-900/5 p-4 w-12 h-12 flex items-center justify-center text-gray-900 transition-colors hover:border-gray-900/10 hover:bg-gray-900/10 hover:!opacity-100 group-hover:opacity-70">
+                    <i class="fa-solid fa-tv" title="TV"></i>
+                </div>
+                {{-- Aquecimento --}}
+                <div
+                    class="cursor-pointer rounded-full border border-gray-900/5 bg-gray-900/5 p-4 w-12 h-12 flex items-center justify-center text-gray-900 transition-colors hover:border-gray-900/10 hover:bg-gray-900/10 hover:!opacity-100 group-hover:opacity-70">
+                    <i class="fa-solid fa-fire" title="heat"></i>
+                </div>
+                {{-- Roupa de cama --}}
+                <div
+                    class="cursor-pointer rounded-full border border-gray-900/5 bg-gray-900/5 p-4 w-12 h-12 flex items-center justify-center text-gray-900 transition-colors hover:border-gray-900/10 hover:bg-gray-900/10 hover:!opacity-100 group-hover:opacity-70">
+                    <i class="fa-solid fa-bed" title="bedding"></i>
+                </div>
+                {{-- Cozinha equipada --}}
+                <div
+                    class="cursor-pointer rounded-full border border-gray-900/5 bg-gray-900/5 p-4 w-12 h-12 flex items-center justify-center text-gray-900 transition-colors hover:border-gray-900/10 hover:bg-gray-900/10 hover:!opacity-100 group-hover:opacity-70">
+                    <i class="fa-solid fa-kitchen-set" title="Kitchen supplies"></i>
+                </div>
 
-</html>
+
+                <span
+                    class="cursor-pointer rounded-full border border-gray-900/5 bg-gray-900/5 p-3 text-gray-900 transition-colors hover:border-gray-900/10 hover:bg-gray-900/10 hover:!opacity-100 group-hover:opacity-70">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                        <path d="M12 7.5a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5z"></path>
+                        <path fill-rule="evenodd"
+                            d="M1.5 4.875C1.5 3.839 2.34 3 3.375 3h17.25c1.035 0 1.875.84 1.875 1.875v9.75c0 1.036-.84 1.875-1.875 1.875H3.375A1.875 1.875 0 011.5 14.625v-9.75zM8.25 9.75a3.75 3.75 0 117.5 0 3.75 3.75 0 01-7.5 0zM18.75 9a.75.75 0 00-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 00.75-.75V9.75a.75.75 0 00-.75-.75h-.008zM4.5 9.75A.75.75 0 015.25 9h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75H5.25a.75.75 0 01-.75-.75V9.75z"
+                            clip-rule="evenodd"></path>
+                        <path
+                            d="M2.25 18a.75.75 0 000 1.5c5.4 0 10.63.722 15.6 2.075 1.19.324 2.4-.558 2.4-1.82V18.75a.75.75 0 00-.75-.75H2.25z">
+                        </path>
+                    </svg>
+                </span>
+                <span
+                    class="cursor-pointer rounded-full border border-gray-900/5 bg-gray-900/5 p-3 text-gray-900 transition-colors hover:border-gray-900/10 hover:bg-gray-900/10 hover:!opacity-100 group-hover:opacity-70">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                        <path fill-rule="evenodd"
+                            d="M1.371 8.143c5.858-5.857 15.356-5.857 21.213 0a.75.75 0 010 1.061l-.53.53a.75.75 0 01-1.06 0c-4.98-4.979-13.053-4.979-18.032 0a.75.75 0 01-1.06 0l-.53-.53a.75.75 0 010-1.06zm3.182 3.182c4.1-4.1 10.749-4.1 14.85 0a.75.75 0 010 1.061l-.53.53a.75.75 0 01-1.062 0 8.25 8.25 0 00-11.667 0 .75.75 0 01-1.06 0l-.53-.53a.75.75 0 010-1.06zm3.204 3.182a6 6 0 018.486 0 .75.75 0 010 1.061l-.53.53a.75.75 0 01-1.061 0 3.75 3.75 0 00-5.304 0 .75.75 0 01-1.06 0l-.53-.53a.75.75 0 010-1.06zm3.182 3.182a1.5 1.5 0 012.122 0 .75.75 0 010 1.061l-.53.53a.75.75 0 01-1.061 0l-.53-.53a.75.75 0 010-1.06z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </span>
+                <span
+                    class="cursor-pointer rounded-full border border-gray-900/5 bg-gray-900/5 p-3 text-gray-900 transition-colors hover:border-gray-900/10 hover:bg-gray-900/10 hover:!opacity-100 group-hover:opacity-70">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                        <path
+                            d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z">
+                        </path>
+                        <path
+                            d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z">
+                        </path>
+                    </svg>
+                </span>
+                <span {{-- Tv satélite --}}
+                    class="cursor-pointer rounded-full border border-gray-900/5 bg-gray-900/5 p-3 text-gray-900 transition-colors hover:border-gray-900/10 hover:bg-gray-900/10 hover:!opacity-100 group-hover:opacity-70">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                        <path d="M19.5 6h-15v9h15V6z"></path>
+                        <path fill-rule="evenodd"
+                            d="M3.375 3C2.339 3 1.5 3.84 1.5 4.875v11.25C1.5 17.16 2.34 18 3.375 18H9.75v1.5H6A.75.75 0 006 21h12a.75.75 0 000-1.5h-3.75V18h6.375c1.035 0 1.875-.84 1.875-1.875V4.875C22.5 3.839 21.66 3 20.625 3H3.375zm0 13.5h17.25a.375.375 0 00.375-.375V4.875a.375.375 0 00-.375-.375H3.375A.375.375 0 003 4.875v11.25c0 .207.168.375.375.375z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </span>
+                <span {{-- Aquecimento --}}
+                    class="cursor-pointer rounded-full border border-gray-900/5 bg-gray-900/5 p-3 text-gray-900 transition-colors hover:border-gray-900/10 hover:bg-gray-900/10 hover:!opacity-100 group-hover:opacity-70">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                        <path fill-rule="evenodd"
+                            d="M12.963 2.286a.75.75 0 00-1.071-.136 9.742 9.742 0 00-3.539 6.177A7.547 7.547 0 016.648 6.61a.75.75 0 00-1.152-.082A9 9 0 1015.68 4.534a7.46 7.46 0 01-2.717-2.248zM15.75 14.25a3.75 3.75 0 11-7.313-1.172c.628.465 1.35.81 2.133 1a5.99 5.99 0 011.925-3.545 3.75 3.75 0 013.255 3.717z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </span>
+                <span
+                    class="cursor-pointer rounded-full border border-gray-900/5 bg-gray-900/5 p-3 text-gray-900 transition-colors hover:border-gray-900/10 hover:bg-gray-900/10 hover:!opacity-100 group-hover:opacity-70">
+                    +20
+                </span>
+            </div>
+            <div class="p-6">
+                <button
+                    class="flex items-center gap-2 rounded border border-[#7E84F2] px-6 py-2 text-sm font-semibold text-[#7E84F2] transition-all hover:bg-[#7E84F2] hover:text-white hover:shadow-lg active:scale-95 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    type="button">
+                    Book now!
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+@endsection

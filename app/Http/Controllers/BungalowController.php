@@ -13,13 +13,18 @@ class BungalowController extends Controller
     public function index(Request $request)
     {
         //search - buscas por nome, local
+        // TIRAR A BUSCA PELO LOCAL E INCLUIR POR DATA DE ENTRADA/SAIDA e ADULTOS
         $search = $request->input('search');
         $bungalows = Bungalow::with('marca', 'localizacao');
 
 
-        if ($search) {
-            $bungalows = $bungalows->where('modelo', 'LIKE', "%{$search}%");
-        }
+        // if ($search) {
+        //     $bungalows = $bungalows->where('modelo', 'LIKE', "%{$search}%");
+        // }
+
+        //É preciso criar o modelo Locacao, e assim, verificar neste acho que por meio de JOIN os bungalows disponíveis
+        // $search =$request->input('check_in', 'check_out', 'adultos');
+        // $bungalows = Bungalow::with('marca', 'localizacao')
 
         $bungalows = $bungalows->paginate(8);
 
