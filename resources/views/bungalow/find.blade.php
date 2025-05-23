@@ -6,21 +6,21 @@
 @section('content')
     <div class="flex gap-x-1">
         <div class="w-fit mx-auto bg-white rounded-lg shadow-xl flex flex-row gap-4 p-4 items-center">
-            <form method="GET" action="{{ route('bungalow.index') }}" class="flex flex-row gap-4 items-center">
+            <form method="GET" action="{{ route('bungalow.find') }}" class="flex flex-row gap-4 items-center">
 
                 <!-- Seleção datas -->
                 <div class="inline-flex items-center px-3.5 py-2 gap-2 text-gray-400 group rounded-md bg-white">
                     <label for="entrada" class="font-medium">
                         Check-in:
                     </label>
-                    <input type="date" name="check_in" class="text-sm text-gray-700 bg-transparent focus:outline-none" />
+                    <input type="date" name="data_inicio" class="text-sm text-gray-700 bg-transparent focus:outline-none" />
                 </div>
                 <div
                     class="inline-flex items-center px-3.5 py-2 gap-2 text-gray-400 group rounded-md bg-white">
                     <label for="saida" class="font-medium">
                         Check-out:
                     </label>
-                    <input type="date" name="check_out" class="text-sm text-gray-700 bg-transparent focus:outline-none" />
+                    <input type="date" name="data_fim" class="text-sm text-gray-700 bg-transparent focus:outline-none" />
                 </div>
 
                 {{-- Selecção número de adultos --}}
@@ -29,7 +29,7 @@
                     <label for="adultos" class="font-medium">
                         Number of guests:
                     </label>
-                    <select name="adultos" id="adultos">
+                    <select name="hospedes" id="hospedes">
                         <option value="">Selecione uma opção</option>
                         <option value="1">1</option>
                         <option value="2">2</option>

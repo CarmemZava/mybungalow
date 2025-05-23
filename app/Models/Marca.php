@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Domain\Bungalow\Models\Bungalow;
+use App\Models\Bungalow;
 
 class Marca extends Model
 {

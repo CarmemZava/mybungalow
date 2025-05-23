@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Domain\Bungalow\Models\Bungalow;
+use App\Models\Bungalow;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 

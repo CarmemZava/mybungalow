@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Bungalow\Models;
+namespace App\Models;
 
 use App\Models\Localizacao;
 use Illuminate\Database\Eloquent\Model;

@@ -17,13 +17,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    // Rotas bungalows acessíveis apenas com Login/Registro
+    Route::get('/find', [BungalowController::class,'all_avalible'])->name('bungalow.find');
+     // Route::get('/clientes_show/{id}',[ClienteController::class,'show'])->name('clientes.show');
 });
-
-//rotas gerais
-Route::resources([
-    'bungalow'=>BungalowController::class,
-    'locacao'=>LocacaoController::class,
-]);
 
 
 //rota home page
@@ -36,10 +33,6 @@ Route::get('/teste', function(){
     return view('bungalow.teste');
 });
 
-//rota show bungalows
-//Route::get('/show', function(){
-  //  return view('bungalow.bungalow-show');
-//});
 
 
 require __DIR__.'/auth.php';

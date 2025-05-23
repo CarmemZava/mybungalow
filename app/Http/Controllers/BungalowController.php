@@ -2,34 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use App\Domain\Bungalow\Models\Bungalow;
+use App\Models\Bungalow as ModelsBungalow;
+use App\Repository\BensLocaveisRepository;
+use App\Services\DisponibilidadeService;
 use Illuminate\Http\Request;
 
 class BungalowController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(Request $request)
+    //Controller "chama" o Service DisponibilidadeService que "chama" o BensLocaveisRepository
+    protected $disponibilidadeService;
+
+    public function __construct(DisponibilidadeService $disponibilidadeService)
     {
-        //search - buscas por nome, local
-        // TIRAR A BUSCA PELO LOCAL E INCLUIR POR DATA DE ENTRADA/SAIDA e ADULTOS
-        $search = $request->input('search');
-        $bungalows = Bungalow::with('marca', 'localizacao');
-
-
-        // if ($search) {
-        //     $bungalows = $bungalows->where('modelo', 'LIKE', "%{$search}%");
-        // }
-
-        //É preciso criar o modelo Locacao, e assim, verificar neste acho que por meio de JOIN os bungalows disponíveis
-        // $search =$request->input('check_in', 'check_out', 'adultos');
-        // $bungalows = Bungalow::with('marca', 'localizacao')
-
-        $bungalows = $bungalows->paginate(8);
-
-        return view('bungalow.index', compact('bungalows'));
+        $this->disponibilidadeService=$disponibilidadeService;
     }
+
+    public function all_avalible(Request $request)
+    {
+        $dataInicio = $request->input('data_inicio');
+        $dataFim = $request->input('data_fim');
+
+        $hospedes = (int) $request->input('hospedes');
+
+        $query = $this->disponibilidadeService->obterDisponiveis($dataInicio, $dataFim, $hospedes);
+        $bungalows = $query->paginate(10);
+
+        return view('bungalow.find', compact('bungalows'));
+
+    }
+
 
     /**
      * Show the form for creating a new resource.
