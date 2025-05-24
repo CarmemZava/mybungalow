@@ -3,21 +3,25 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Locacao;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
+
     public function run(): void
     {
-        // User::factory(10)->create();
+        //Seeder criado com o meu Registro
+        //$this->call(Users::class);
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        //factory de User fake
+        //User::factory(10)->create();
+
+        //factory de Locacao fake --> Criar apenas depois da criação do User, tem dependência do user_id
+        //Locacao::factory(20)->create();
+
+
+        // php artisan db:seed
     }
 }

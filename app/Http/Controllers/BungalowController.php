@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Bungalow as ModelsBungalow;
+use App\Models\Bungalow;
 use App\Repository\BensLocaveisRepository;
 use App\Services\DisponibilidadeService;
 use Illuminate\Http\Request;
@@ -14,7 +14,7 @@ class BungalowController extends Controller
 
     public function __construct(DisponibilidadeService $disponibilidadeService)
     {
-        $this->disponibilidadeService=$disponibilidadeService;
+        $this->disponibilidadeService = $disponibilidadeService;
     }
 
     public function all_avalible(Request $request)
@@ -27,8 +27,31 @@ class BungalowController extends Controller
         $query = $this->disponibilidadeService->obterDisponiveis($dataInicio, $dataFim, $hospedes);
         $bungalows = $query->paginate(10);
 
-        return view('bungalow.find', compact('bungalows'));
+        return view('bungalow.find', [
+            'bungalows' => $bungalows,
+            'dataInicio' => $dataInicio,
+            'dataFim' => $dataFim,
+            'hospedes' => $hospedes,
+        ]);
+    }
 
+    public function show_more($id, Request $request)
+    {
+        $dataInicio = $request->query('data_inicio');
+        $dataFim = $request->query('data_fim');
+        $hospedes = $request->query('hospedes');
+
+
+        $bungalow = $this->disponibilidadeService->obterEspecifico($id);
+        return view(
+            'bungalow.show',
+            [
+                'bungalow' => $bungalow,
+                'dataInicio' => $dataInicio,
+                'dataFim' => $dataFim,
+                'hospedes' => $hospedes
+            ]
+        );
     }
 
 
@@ -51,10 +74,7 @@ class BungalowController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
+
 
     /**
      * Show the form for editing the specified resource.

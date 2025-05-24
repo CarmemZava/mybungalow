@@ -20,9 +20,9 @@
             @if (Route::has('login'))
                 @auth
                     <div class="text-center mt-4">
-                        <a href="{{ url('/dashboard') }}"
+                        <a href="{{ url('/home') }}"
                             class="text-[#4A575A] font-semibold text-lg underline hover:text-[#7E84F2] transition">
-                            Go to Dashboard
+                            Go to Home
                         </a>
                     </div>
                 @else

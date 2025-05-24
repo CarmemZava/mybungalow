@@ -2,10 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Locacoes extends Model
+class Locacao extends Model
 {
+    //Criação de Locações fake
+    use HasFactory;
+
     protected $table = 'locacoes';
 
     protected $fillable = [

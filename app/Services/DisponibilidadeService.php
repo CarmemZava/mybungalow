@@ -25,4 +25,8 @@ class DisponibilidadeService
         //Caso todos os parâmetros preenchidos, buscar o método buscarPorDisponibilidade e passar estes parâmetros
         return $this->repositorio->buscarPorDisponibilidade($dataInicio, $dataFim, $hospedes);
     }
+
+    public function obterEspecifico($id){
+        return $this->repositorio->buscarPorId($id);
+    }
 }

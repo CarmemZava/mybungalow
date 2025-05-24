@@ -17,9 +17,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    // Rotas bungalows acessíveis apenas com Login/Registro
+
+    // Rotas bungalows acessíveis apenas com Login/Registro:
+    //Rota busca de Bungalows
     Route::get('/find', [BungalowController::class,'all_avalible'])->name('bungalow.find');
-     // Route::get('/clientes_show/{id}',[ClienteController::class,'show'])->name('clientes.show');
+    //Rota "show more" de um Bungalow esspecífico (id)
+    Route::get('/show/{id}',[BungalowController::class,'show_more'])->name('bungalow.show');
 });
 
 
