@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ValidacaoDatas;
 use App\Models\Bungalow;
 use App\Repository\BensLocaveisRepository;
 use App\Services\DisponibilidadeService;
@@ -17,15 +18,28 @@ class BungalowController extends Controller
         $this->disponibilidadeService = $disponibilidadeService;
     }
 
-    public function all_avalible(Request $request)
+    public function index()
     {
+        $bungalows = Bungalow::paginate(8);
+
+        return view('bungalow.find', [
+            'bungalows' => $bungalows,
+            'dataInicio' => null,
+            'dataFim' => null,
+            'hospedes' => null,
+        ]);
+    }
+
+    public function all_avalible(ValidacaoDatas $request)
+    {
+        //dataInicio, dataFim e hospedes já validados pelo ValidacaoDatas
         $dataInicio = $request->input('data_inicio');
         $dataFim = $request->input('data_fim');
 
         $hospedes = (int) $request->input('hospedes');
 
         $query = $this->disponibilidadeService->obterDisponiveis($dataInicio, $dataFim, $hospedes);
-        $bungalows = $query->paginate(10);
+        $bungalows = $query->paginate(8);
 
         return view('bungalow.find', [
             'bungalows' => $bungalows,

@@ -2,7 +2,7 @@
 
 <style>
     body {
-        background-image: url('{{ asset('images/ondas.png') }}');
+        background-image: url('{{ asset('images/logo/ondas.png') }}');
         background-repeat: repeat;
         background-position: center;
         background-size: 120px;
@@ -11,12 +11,11 @@
 
 
 @section('content')
-    <!-- component -->
     <div class="flex mt-16 w-full flex-wrap content-center justify-center p-5" style="background-color: transparent;">
         <div class="bg-white p-5 rounded-xl shadow-md">
             <div class="grid grid-cols-3 gap-3">
                 <div class="w-80 bg-white p-3">
-                    <img class="h-52 w-full object-cover" src="{{ asset('images/bungalow4.jpg') }}" />
+                    <img class="h-52 w-full object-cover" src="{{ asset('images/bungalows/bungalow15.jpg') }}" />
                     <ul class="mt-3 flex flex-wrap">
                         <li class="mr-auto">
                             <a href="#" class="flex text-gray-400 hover:text-gray-600">
@@ -58,7 +57,7 @@
                 </div>
 
                 <div class="w-80 bg-white p-3">
-                    <img class="h-52 w-full object-cover" src="{{ asset('images/mountain.webp') }}" />
+                    <img class="h-52 w-full object-cover" src="{{ asset('images/bungalows/bungalow4.jpg') }}" />
                     <ul class="mt-3 flex flex-wrap">
                         <li class="mr-auto">
                             <a href="#" class="flex text-gray-400 hover:text-gray-600">
@@ -100,7 +99,7 @@
                 </div>
 
                 <div class="w-80 bg-white p-3">
-                    <img class="h-52 w-full object-cover" src="{{ asset('images/bungalow5.jpg') }}" />
+                    <img class="h-52 w-full object-cover" src="{{ asset('images/bungalows/bungalow11.jpg') }}" />
                     <ul class="mt-3 flex flex-wrap">
                         <li class="mr-auto">
                             <a href="#" class="flex text-gray-400 hover:text-gray-600">
@@ -142,7 +141,7 @@
                 </div>
 
                 <div class="w-80 bg-white p-3">
-                    <img class="h-52 w-full object-cover" src="{{ asset('images/beach.png') }}" />
+                    <img class="h-52 w-full object-cover" src="{{ asset('images/bungalows/bungalow5.jpg') }}" />
                     <ul class="mt-3 flex flex-wrap">
                         <li class="mr-auto">
                             <a href="#" class="flex text-gray-400 hover:text-gray-600">
@@ -183,7 +182,7 @@
                     </ul>
                 </div>
                 <div class="w-80 bg-white p-3">
-                    <img class="h-52 w-full object-cover" src="{{ asset('images/bungalow2.jpg') }}" />
+                    <img class="h-52 w-full object-cover" src="{{ asset('images/bungalows/bungalow6.jpg') }}" />
                     <ul class="mt-3 flex flex-wrap">
                         <li class="mr-auto">
                             <a href="#" class="flex text-gray-400 hover:text-gray-600">
@@ -224,7 +223,7 @@
                     </ul>
                 </div>
                 <div class="w-80 bg-white p-3">
-                    <img class="h-52 w-full object-cover" src="{{ asset('images/bungalow5.jpg') }}" />
+                    <img class="h-52 w-full object-cover" src="{{ asset('images/bungalows/bungalow7.jpg') }}" />
                     <ul class="mt-3 flex flex-wrap">
                         <li class="mr-auto">
                             <a href="#" class="flex text-gray-400 hover:text-gray-600">

@@ -3,10 +3,11 @@
 
 @section('content')
     <div class="w-full flex justify-center pt-0 bg-gray-50">
-        <div class="relative mx-10 overflow-hidden text-white shadow-lg rounded-xl bg-blue-gray-500 bg-clip-border shadow-blue-gray-500/40 max-w-3xl max-h-full">
+        <div
+            class="relative mx-10 overflow-hidden text-white shadow-lg rounded-xl bg-blue-gray-500 bg-clip-border shadow-blue-gray-500/40 max-w-3xl max-h-full">
             <img class="w-full object-cover"
-            src="https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1470&amp;q=80"
-            alt="ui/ux review check" />
+                src="https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1470&amp;q=80"
+                alt="ui/ux review check" />
             <div
                 class="absolute inset-0 w-full h-full to-bg-black-10 bg-gradient-to-tr from-transparent via-transparent to-black/60">
             </div>
@@ -23,12 +24,13 @@
             </button>
         </div>
         <div class="p-6">
+            {{-- Detalhes sobre modelo, marca e localização --}}
             <div class="flex items-center justify-between mb-3">
-                <h5 class="block font-sans text-xl antialiased font-medium leading-snug tracking-normal text-blue-gray-900">
+                <h5 class="hidden lg:flex gap-x-8 text-[20px] font-semibold text-[#4A575A] justify-center">
                     {{ $bungalow->modelo }}
                 </h5>
             </div>
-            {{-- Detalhes sobre marca e localização --}}
+
             <div class="mr-5 block font-sans text-base antialiased font-light leading-relaxed text-gray-700">
                 <p>MyBungalow {{ $bungalow->marca->nome }} apresenta {{ $bungalow->marca->observacao }}</p>
                 <br>
@@ -43,8 +45,6 @@
                     {{ $bungalow->localizacao->cidade }}
                 </p>
             </div>
-
-
 
             {{-- Características mostradas por ícone/cursor --}}
             <div class="inline-flex flex-wrap items-center gap-3 mt-8 group">
@@ -124,7 +124,8 @@
                         </div>
                         <button
                             class="flex items-center gap-2 rounded border border-[#7E84F2] px-6 py-2 text-sm font-semibold text-[#7E84F2] transition-all hover:bg-[#7E84F2] hover:text-white hover:shadow-lg active:scale-95 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                            type="button">
+                            type="button" id="bookNow"
+                            onclick="document.getElementById('bookModal').classList.remove('hidden')">
                             Book now!
                         </button>
                     </div>
@@ -137,8 +138,6 @@
 
                 </div>
             </div>
-
-
 
             {{-- Cálculo Pagamento total e 10% de entrada --}}
             <script>
@@ -183,6 +182,41 @@
 
                 PagamentoInicial(totalCalculado);
             </script>
+
+
+
+            <!-- Modal, vai servir de formulário para Confimação de Dados e criação de uma Locação Pendente -->
+            <div id="bookModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+                <div class="bg-white p-6 rounded shadow-lg w-full max-w-md relative">
+                    <button onclick="document.getElementById('bookModal').classList.add('hidden')"
+                        class="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-xl">&times;</button>
+
+                    <h2 class="text-2xl font-bold mb-4">Confirm your booking details</h2>
+                    <form method="POST" action="{{ route('bungalow-locacao.store') }}">
+                        @csrf
+
+                        <label class="text-[20px] font-semibold text-[#4A575A]">{{ $bungalow->modelo }}</label>
+                        <label class="block mb-2">Check-in:</label>
+                        <label for="data_inicio"></label>
+                        <input type="date" name="data_inicio" id="data_inicio" value="{{ request('data_inicio') }}" min="{{ date('Y-m-d') }}"
+                        class="border rounded px-3 py-2 w-full mb-4" required/>
+
+                        <label class="block mb-2">Check-out:</label>
+                        <input type="date" name="dataFim" value="{{ $dataFim }}" min="{{ date('Y-m-d') }}"
+                            class="border rounded px-3 py-2 w-full mb-4" required>
+
+                        <label class="block mb-2">Guests:</label>
+                        <input type="text" name="hospedes" value="{{ $hospedes }}"
+                            class="border rounded px-3 py-2 w-full mb-4" required>
+
+                        <button type="submit"
+                            class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition">
+                            Pay now
+                        </button>
+                    </form>
+                </div>
+            </div>
+
 
 
 

@@ -17,7 +17,7 @@
 
     <style>
         .fundo {
-            background-image: url('{{ asset('images/ondas.png') }}');
+            background-image: url('{{ asset('images/logo/ondas.png') }}');
             background-repeat: repeat;
             background-position: center;
             background-size: 140px;
@@ -45,7 +45,7 @@
                         <div class="flex flex-col">
                             <a href="#" class="-m-1.5 p-1.5">
                                 {{-- logo --}}
-                                <img class="h-8 w-auto" src="{{ asset('images/logo-bungalow2.png') }}" alt="logo"
+                                <img class="h-8 w-auto" src="{{ asset('images/logo/logo-bungalow2.png') }}" alt="logo"
                                     style="height: 200px; width:250px">
                             </a>
                         </div>

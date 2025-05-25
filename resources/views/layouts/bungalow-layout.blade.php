@@ -48,7 +48,7 @@
                 <div class="flex items-center lg:flex-1 space-x-1">
                     <a href="#" class="-m-1.5 p-1.5">
                         {{-- logo --}}
-                        <img class="h-8 w-auto" src="{{ asset('images/logo-bungalow2.png') }}" alt="logo"
+                        <img class="h-8 w-auto" src="{{ asset('images/logo/logo-bungalow2.png') }}" alt="logo"
                             style="height: 100px; width:150px">
                     </a>
                     {{-- Cor do meu site: #425057 e #7E84F2 --}}
@@ -57,8 +57,8 @@
                 </div>
                 <div class="hidden lg:flex gap-x-8 text-[20px] font-semibold text-[#4A575A] justify-center flex-1">
                     <a href="{{ url('/home') }}">Home</a>
-                    <a href="{{ route('bungalow.find') }}">Booking</a>
-                    <a href="#">Contact</a>
+                    <a href="{{ route('bungalow.index') }}">Search</a>
+                    <a href="#">Bookings</a>
                 </div>
 
 

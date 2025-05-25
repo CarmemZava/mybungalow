@@ -29,7 +29,7 @@
                     <a href="#" class="-m-1.5 p-1.5">
                         <span class="sr-only">Your Company</span>
                         {{-- logo --}}
-                        <img class="h-8 w-auto" src="{{ asset('images/logo-bungalow2.png') }}" alt="logo"
+                        <img class="h-8 w-auto" src="{{ asset('images/logo/logo-bungalow2.png') }}" alt="logo"
                             style="height: 130px; width:180px">
                     </a>
                     {{-- Cor do meu site: #425057 e #7E84F2 --}}

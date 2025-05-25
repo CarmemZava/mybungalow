@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Locacao;
 use Illuminate\Http\Request;
 
 class LocacaoController extends Controller
@@ -11,7 +12,10 @@ class LocacaoController extends Controller
      */
     public function index()
     {
-        //
+        //PRECISO DE CRIAR AS RELAÇÕES ENTRE OS USERS E LOCACOES, NA VIEW TESTE EU FAÇO UM FORM GET, TALVEZ ESSA INFO TENHA QUEM FICAR NO SHOW E NAO NO INDEX COMO ESTÁ
+        //$locacoes=Locacao::all();
+
+        //return view('bungalow.teste', compact('locacoes'));
     }
 
     /**
@@ -27,7 +31,7 @@ class LocacaoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return view('bungalow-locacao.transaction');
     }
 
     /**
