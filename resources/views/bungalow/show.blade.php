@@ -185,24 +185,25 @@
 
 
 
-            <!-- Modal, vai servir de formulário para Confimação de Dados e criação de uma Locação Pendente -->
+            <!-- Modal, vai servir de formulário para Confimação de Dados e passa para a view de pagamento -->
             <div id="bookModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
                 <div class="bg-white p-6 rounded shadow-lg w-full max-w-md relative">
                     <button onclick="document.getElementById('bookModal').classList.add('hidden')"
                         class="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-xl">&times;</button>
 
                     <h2 class="text-2xl font-bold mb-4">Confirm your booking details</h2>
-                    <form method="POST" action="{{ route('bungalow-locacao.store') }}">
+                    <form method="POST" action="{{ route('bungalow-pre-reservation') }}">
                         @csrf
-
+                        <!-- input do id do bungalow escondido para passar para o LocacaoController -->
+                        <input type="hidden" name="bungalow_id" id="bungalow_id" value="{{ $bungalow->id }}">
                         <label class="text-[20px] font-semibold text-[#4A575A]">{{ $bungalow->modelo }}</label>
                         <label class="block mb-2">Check-in:</label>
                         <label for="data_inicio"></label>
-                        <input type="date" name="data_inicio" id="data_inicio" value="{{ request('data_inicio') }}" min="{{ date('Y-m-d') }}"
-                        class="border rounded px-3 py-2 w-full mb-4" required/>
+                        <input type="date" name="data_inicio" id="data_inicio" value="{{ request('data_inicio') }}"
+                            min="{{ date('Y-m-d') }}" class="border rounded px-3 py-2 w-full mb-4" required />
 
                         <label class="block mb-2">Check-out:</label>
-                        <input type="date" name="dataFim" value="{{ $dataFim }}" min="{{ date('Y-m-d') }}"
+                        <input type="date" name="data_fim" value="{{ $dataFim }}" min="{{ date('Y-m-d') }}"
                             class="border rounded px-3 py-2 w-full mb-4" required>
 
                         <label class="block mb-2">Guests:</label>
@@ -216,6 +217,51 @@
                     </form>
                 </div>
             </div>
+
+            <!-- recebe resposta do LocacaoController sobre a disponibilidade do bungalow em termos de data/hospede -->
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    const form = document.querySelector('#bookModal form');
+                    form.addEventListener('submit', async function(e) {
+                        e.preventDefault();
+
+                        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute(
+                            'content');
+
+                        const data = {
+                            bungalow_id: document.getElementById('bungalow_id').value,
+                            data_inicio: document.getElementById('data_inicio').value,
+                            data_fim: document.getElementById('data_fim').value,
+                            hospedes: document.querySelector('[name="hospedes"]').value,
+                        };
+
+                        try {
+                            const response = await fetch('{{ route('bungalow-pre-reservation') }}', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': csrfToken
+                                },
+                                body: JSON.stringify(data)
+                            });
+
+                            const result = await response.json();
+
+                            if (response.ok) {
+                                alert('Reserva criada com sucesso! ID: ' + result.reservation.id);
+                                document.getElementById('bookModal').classList.add('hidden');
+                            } else {
+                                alert('Erro: ' + result.message);
+                            }
+
+                        } catch (error) {
+                            alert('Erro na requisição.');
+                            console.error(error);
+                        }
+                    });
+                });
+            </script>
+
 
 
 
