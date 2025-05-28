@@ -8,10 +8,10 @@
                 Welcome to My<span style="color: #7E84F2">Bungalow</span>
             </h1>
             <p class="text-lg text-gray-600 text-center mt-10">
-                A sua escapadinha começa aqui.
+                Your getaway starts here.
             </p>
             <p class="text-lg text-gray-600 text-center mt-2">
-                Encontre o Mybungalow ideal e aproveite cada momento.
+                Find the perfect Mybungalow and enjoy every moment.
             </p>
         </div>
 

@@ -108,11 +108,9 @@
             @endphp
 
             <a href="{{ $url }}" class="block py-6 cursor-pointer">
-                <div class="bg-white shadow-2xl rounded-lg tracking-wide hover:shadow-3xl transition-shadow duration-300">
-                    <div class="md:flex-shrink-0">
-                        <img src="https://ik.imagekit.io/q5edmtudmz/post1_fOFO9VDzENE.jpg" alt="mountains"
-                            class="w-full h-50 rounded-t-lg">
-                    </div>
+                <div class="bg-white shadow-2xl rounded-lg tracking-wide hover:shadow-3xl transition-shadow duration-300 mt-8">
+                    <img src="{{ asset($bungalow->imagem) }}" alt="Imagem do Bungalow" style="width: 300px; height: 250px;"
+                        class="block mx-auto">
                     <div class="px-4 py-2 mt-2">
                         <h2 class="hidden lg:flex gap-x-8 text-[20px] font-semibold text-[#4A575A] justify-center">
                             {{ $bungalow->modelo }}</h2>

@@ -9,7 +9,7 @@
                 <div class="p-1 bg-blue-200">
                 </div>
                 <div class="p-8">
-                    <img class="mx-auto mb-6" src="{{ asset('images/paypal.png') }}" alt="paypal" height="150"
+                    <img class="mx-auto mb-6" src="{{ asset('images/logo/paypal.png') }}" alt="paypal" height="150"
                         width="180">
                     <h2 class="text-3xl font-bold text-gray-800 mb-4">Pay the Full Price</h2>
                     <p class="text-gray-600 mb-6">Get 5% of descount in your next MyBungalow.</p>
@@ -55,7 +55,7 @@
                 <div class="p-1 bg-purple-200">
                 </div>
                 <div class="p-8">
-                    <img class="mx-auto mb-6" src="{{ asset('images/paypal.png') }}" alt="paypal" height="150"
+                    <img class="mx-auto mb-6" src="{{ asset('images/logo/paypal.png') }}" alt="paypal" height="150"
                         width="180">
                     <h2 class="text-3xl font-bold text-gray-800 mb-4">Pay 10% upfront</h2>
                     <p class="text-gray-600 mb-6">The remaining payment is due the day before your check-in.</p>

@@ -35,7 +35,7 @@ class BensLocaveisRepository
     }
 
     public function buscarPorId($id) {
-        return Bungalow::with(['marca','localizacao'])->findOrFail($id);
+        return Bungalow::with(['marca','localizacao','caracteristicas'])->findOrFail($id);
     }
 
 

@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
         //User::factory(10)->create();
 
         //factory de Locacao fake --> Criar apenas depois da criação do User, tem dependência do user_id
-        //Locacao::factory(20)->create();
+        Locacao::factory(20)->create();
 
 
         // php artisan db:seed

@@ -2,15 +2,11 @@
 @extends('layouts.bungalow-layout')
 
 @section('content')
-    <div class="w-full flex justify-center pt-0 bg-gray-50">
+    <div class="w-full flex justify-center pt-0">
         <div
-            class="relative mx-10 overflow-hidden text-white shadow-lg rounded-xl bg-blue-gray-500 bg-clip-border shadow-blue-gray-500/40 max-w-3xl max-h-full">
-            <img class="w-full object-cover"
-                src="https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1470&amp;q=80"
-                alt="ui/ux review check" />
-            <div
-                class="absolute inset-0 w-full h-full to-bg-black-10 bg-gradient-to-tr from-transparent via-transparent to-black/60">
-            </div>
+            class="relative mx-10 overflow-hidden text-white rounded-xl bg-blue-gray-500 bg-clip-border max-w-3xl max-h-full shadow-none">
+            <img class="w-full object-cover" src="{{ asset($bungalow->imagem) }}" alt="ui/ux review check"
+                style="width: 700px; height: 525px;" />
             <button
                 class="!absolute top-4 right-4 h-8 max-h-[32px] w-8 max-w-[32px] select-none rounded-full text-center align-middle font-sans text-xs font-medium uppercase text-red-500 transition-all hover:bg-red-500/10 active:bg-red-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                 type="button">
@@ -44,69 +40,75 @@
                     </svg>{{ $bungalow->localizacao->posicao }} , {{ $bungalow->localizacao->filial }} -
                     {{ $bungalow->localizacao->cidade }}
                 </p>
+                <br>
+                <p class="flex items-center gap-2">
+                <div class="mb-4 flex items-center text-gray-700 gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                    </svg> Accommodation Details:
+                </div>
+
+                <div>
+                    <p>Suitable for {{ $bungalow->numero_hospedes }} guests</p>
+                    <p>{{ $bungalow->numero_quartos }} bedrooms </p>
+                    <p>{{ $bungalow->numero_camas }} beds</p>
+                    <p>{{ $bungalow->numero_casas_banho }} bathrooms</p>
+                </div>
+
+                </p>
             </div>
+            <br>
 
             {{-- Características mostradas por ícone/cursor --}}
-            <div class="inline-flex flex-wrap items-center gap-3 mt-8 group">
-                {{-- TV --}}
-                <div title="TV"
-                    class="cursor-pointer rounded-full border border-gray-900/5 bg-gray-900/5 p-4 w-12 h-12 flex items-center justify-center text-gray-900 transition-colors hover:border-gray-900/10 hover:bg-gray-900/10 hover:!opacity-100 group-hover:opacity-70">
-                    <i class="fa-solid fa-tv"></i>
-                </div>
-                {{-- Aquecimento --}}
-                <div title="heat"
-                    class="cursor-pointer rounded-full border border-gray-900/5 bg-gray-900/5 p-4 w-12 h-12 flex items-center justify-center text-gray-900 transition-colors hover:border-gray-900/10 hover:bg-gray-900/10 hover:!opacity-100 group-hover:opacity-70">
-                    <i class="fa-solid fa-fire"></i>
-                </div>
-                {{-- Roupa de cama --}}
-                <div title="bedding"
-                    class="cursor-pointer rounded-full border border-gray-900/5 bg-gray-900/5 p-4 w-12 h-12 flex items-center justify-center text-gray-900 transition-colors hover:border-gray-900/10 hover:bg-gray-900/10 hover:!opacity-100 group-hover:opacity-70">
-                    <i class="fa-solid fa-bed"></i>
-                </div>
+            <p class="flex items-center gap-2">
+            <div class="flex items-center text-gray-700 gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg> Amenities:
+            </div>
+            <div class="grid grid-cols-8 gap-3 mt-8">
 
-                {{-- FALTA cozinha equipada --}}
-
-                {{-- Fogão --}}
-                <div title="stove"
-                    class="cursor-pointer rounded-full border border-gray-900/5 bg-gray-900/5 p-4 w-12 h-12 flex items-center justify-center text-gray-900 transition-colors hover:border-gray-900/10 hover:bg-gray-900/10 hover:!opacity-100 group-hover:opacity-70">
-                    <i class="fa-solid fa-fire-burner"></i>
-                </div>
-                {{-- Frigorífico --}}
-                <div title="refrigerator"
-                    class="cursor-pointer rounded-full border border-gray-900/5 bg-gray-900/5 p-4 w-12 h-12 flex items-center justify-center text-gray-900 transition-colors hover:border-gray-900/10 hover:bg-gray-900/10 hover:!opacity-100 group-hover:opacity-70">
-                    <i class="fa-regular fa-refrigerator"></i>
-                </div>
-                {{-- loiças --}}
-                <div title="Plates and utensils"
-                    class="cursor-pointer rounded-full border border-gray-900/5 bg-gray-900/5 p-4 w-12 h-12 flex items-center justify-center text-gray-900 transition-colors hover:border-gray-900/10 hover:bg-gray-900/10 hover:!opacity-100 group-hover:opacity-70">
-                    <i class="fa-solid fa-kitchen-set"></i>
-                </div>
-                {{-- microondas --}}
-
-                {{-- Produtos de higiene --}}
-                <div title="hygiene products"
-                    class="cursor-pointer rounded-full border border-gray-900/5 bg-gray-900/5 p-4 w-12 h-12 flex items-center justify-center text-gray-900 transition-colors hover:border-gray-900/10 hover:bg-gray-900/10 hover:!opacity-100 group-hover:opacity-70">
-                    <i class="fa-solid fa-pump-soap"></i>
-                </div>
-
-                {{-- TOALHAS --}}
+                @php
+                    //Criação de um config que possue todas as características definidas por um title, e ícone
+                    $features = config('caracteristicas.bungalow_features');
+                    $bungalowFeatures = [
+                        'aceita_animais',
+                        'estacionamento_privado',
+                        'aquecimento',
+                        'roupa_de_cama',
+                        'tv',
+                        'cozinha_equipada',
+                        'loicas',
+                        'fogao',
+                        'frigorifico',
+                        'microondas',
+                        'wc_com_duche',
+                        'produtos_de_higiene',
+                        'toalhas',
+                        'jardim',
+                        'churrasqueira',
+                        'mobilario_exterior',
+                    ];
+                @endphp
 
 
-
-                {{-- Aceita Animais --}}
-                <div title="Pet-friendly"
-                    class="cursor-pointer rounded-full border border-gray-900/5 bg-gray-900/5 p-4 w-12 h-12 flex items-center justify-center text-gray-900 transition-colors hover:border-gray-900/10 hover:bg-gray-900/10 hover:!opacity-100 group-hover:opacity-70">
-                    <i class="fa-solid fa-paw"></i>
-                </div>
-
-
-
-                <span
-                    class="cursor-pointer rounded-full border border-gray-900/5 bg-gray-900/5 p-3 text-gray-900 transition-colors hover:border-gray-900/10 hover:bg-gray-900/10 hover:!opacity-100 group-hover:opacity-70">
-                    +20
-                </span>
+                @foreach ($bungalow->caracteristicas as $caracteristica)
+                    <div title="{{ $caracteristica->title }}" class="{{ $caracteristica->class }}">
+                        <i class="{{ $caracteristica->icone }}"></i>
+                    </div>
+                @endforeach
 
             </div>
+            </p>
+
+
+
+
+
 
             {{-- Detalhes preço e outros associados ao ato de reservar --}}
             <div class="container px-5 py-20 mx-auto">
@@ -198,8 +200,8 @@
                         <label class="text-[20px] font-semibold text-[#4A575A]">{{ $bungalow->modelo }}</label>
                         <label class="block mb-2">Check-in:</label>
                         <label for="data_inicio"></label>
-                        <input type="date" name="data_inicio" id="data_inicio" value="{{ request('data_inicio') }}" min="{{ date('Y-m-d') }}"
-                        class="border rounded px-3 py-2 w-full mb-4" required/>
+                        <input type="date" name="data_inicio" id="data_inicio" value="{{ request('data_inicio') }}"
+                            min="{{ date('Y-m-d') }}" class="border rounded px-3 py-2 w-full mb-4" required />
 
                         <label class="block mb-2">Check-out:</label>
                         <input type="date" name="dataFim" value="{{ $dataFim }}" min="{{ date('Y-m-d') }}"

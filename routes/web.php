@@ -10,8 +10,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
+Route::get('/home', function () {
+    return view('bungalow.home');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -40,9 +40,9 @@ Route::middleware('auth')->group(function () {
 
 
 //rota home page
-Route::get('/home', function () {
-    return view('bungalow.home');
-});
+//Route::get('/home', function () {
+//    return view('bungalow.home');
+//});
 
 //rota teste
 Route::get('/teste', function () {
