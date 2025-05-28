@@ -20,7 +20,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    //Rotas bungalows acessíveis apenas com Login/Registro:
+    ////################ Rotas bungalows acessíveis apenas com Login/Registro:
     //Rota busca de Bungalows
     Route::get('/bungalows', [BungalowController::class, 'index'])->name('bungalow.index');
     //Rota busca de Bungalows com preenchimento de input (inclui validação ValidacaoDatas)
@@ -28,32 +28,24 @@ Route::middleware('auth')->group(function () {
     //Rota "show more" de um Bungalow esspecífico (id)
     Route::get('/show/{id}', [BungalowController::class, 'show_more'])->name('bungalow.show');
 
-    //Rotas Locacao:
-    Route::post('/locacao-pre-reservation', [LocacaoController::class, 'pre_reservation'])->name('bungalow-pre-reservation');
+
+    //################  Rotas Locacao:
+    //Rota pré-locacao, modal de confirmação de datas e hospedes:
+    Route::post('/locacao/pre-reservation', [LocacaoController::class,'pre_reservation'])->name('bungalow-pre-reservation');
     //Rota para ver todas as Locacoes do user (histórico):
-    Route::middleware('auth')->get('show-all', [LocacaoController::class, 'show_user_bookings'])->name('user-bookings');
+    Route::get('/user/bookings', [LocacaoController::class, 'show_user_bookings'])->name('locacao.user-bookings');
 
 
 
 
-    //Rotas pagamento - paypal:
-    Route::get('locacao.transaction', [PaypalController::class, 'createTransaction'])->name('createTransaction');
+    //Rotas locacao pagamento - paypal:
+    Route::get('locacao.transaction', [PaypalController::class, 'escolherPagamento'])->name('locacao.transaction');
     Route::get('process-transaction', [PayPalController::class, 'processTransaction'])->name('processTransaction');
     Route::get('success-transaction', [PayPalController::class, 'successTransaction'])->name('successTransaction');
     Route::get('cancel-transaction', [PayPalController::class, 'cancelTransaction'])->name('cancelTransaction');
     Route::get('finish-transaction', [PayPalController::class, 'finishTransaction'])->name('finishTransaction');
 });
 
-
-//rota home page
-//Route::get('/home', function () {
-//    return view('bungalow.home');
-//});
-
-//rota teste
-Route::get('/teste', function () {
-    return view('bungalow.teste');
-});
 
 
 

@@ -39,4 +39,10 @@ class Bungalow extends Model
     {
         return $this->belongsToMany(CaracteristicaDescricao::class, 'bem_caracteristicas', 'bem_locavel_id', 'caracteristica_id');
     }
+
+    //relação bens_locaveis com locação
+    public function locacoes()
+    {
+        return $this->hasMany(Locacao::class, 'bem_locavel_id');       //1 bungalow tem muitas locacoes
+    }
 }

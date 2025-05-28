@@ -20,4 +20,10 @@ class Locacao extends Model
     'preco_total',
     'status',
     ];
+
+    //relação de bens_locaveis com locacao
+    public function bungalow()
+    {
+        return $this->belongsTo(Bungalow::class, 'bem_locavel_id');      //a locacao pertence a um bungalow
+    }
 }

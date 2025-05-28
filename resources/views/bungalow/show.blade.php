@@ -5,8 +5,7 @@
     <div class="w-full flex justify-center pt-0">
         <div
             class="relative mx-10 overflow-hidden text-white rounded-xl bg-blue-gray-500 bg-clip-border max-w-3xl max-h-full shadow-none">
-            <img class="w-full object-cover" src="{{ asset($bungalow->imagem) }}" alt="ui/ux review check"
-                style="width: 700px; height: 525px;" />
+            <img class="w-[700px] h-[525px] object-cover" src="{{ asset($bungalow->imagem) }}" />
             <button
                 class="!absolute top-4 right-4 h-8 max-h-[32px] w-8 max-w-[32px] select-none rounded-full text-center align-middle font-sans text-xs font-medium uppercase text-red-500 transition-all hover:bg-red-500/10 active:bg-red-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                 type="button">
@@ -30,7 +29,7 @@
             <div class="mr-5 block font-sans text-base antialiased font-light leading-relaxed text-gray-700">
                 <p>MyBungalow {{ $bungalow->marca->nome }} apresenta {{ $bungalow->marca->observacao }}</p>
                 <br>
-                <p class="flex items-center gap-2">
+                <div class="flex items-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -39,7 +38,7 @@
                             d="M12 22s8-4.5 8-10A8 8 0 0 0 4 12c0 5.5 8 10 8 10z" />
                     </svg>{{ $bungalow->localizacao->posicao }} , {{ $bungalow->localizacao->filial }} -
                     {{ $bungalow->localizacao->cidade }}
-                </p>
+                </div>
                 <br>
                 <p class="flex items-center gap-2">
                 <div class="mb-4 flex items-center text-gray-700 gap-2">
@@ -179,6 +178,10 @@
                 );
 
                 PagamentoInicial(totalCalculado);
+
+                // Passar os dados para o modal que vai carregar estes para a próxima view
+                document.getElementById('input_total').value = totalCalculado.toFixed(2);
+                document.getElementById('input_inicial').value = (totalCalculado * 0.1).toFixed(2);
             </script>
 
 
@@ -186,14 +189,14 @@
             <!-- Modal, vai servir de formulário para Confimação de Dados e passa para a view de pagamento -->
             <div id="bookModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
                 <div class="bg-white p-6 rounded shadow-lg w-full max-w-md relative">
-                    <button onclick="document.getElementById('bookModal').classList.add('hidden')"
-                        class="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-xl">&times;</button>
-
                     <h2 class="text-2xl font-bold mb-4">Confirm your booking details</h2>
                     <form method="POST" action="{{ route('bungalow-pre-reservation') }}">
                         @csrf
                         <!-- input do id do bungalow escondido para passar para o LocacaoController -->
                         <input type="hidden" name="bungalow_id" id="bungalow_id" value="{{ $bungalow->id }}">
+                        {{-- Valor total e 10% vão ser também passados como hidden --}}
+                        <input type="hidden" id="total_input" name="total" value="{{ $valorTotal }}">
+                        <input type="hidden" id="inicial_input" name="inicial" value="{{ $valorInicial }}">
                         <label class="text-[20px] font-semibold text-[#4A575A]">{{ $bungalow->modelo }}</label>
                         <label class="block mb-2">Check-in:</label>
                         <label for="data_inicio"></label>
@@ -216,49 +219,7 @@
                 </div>
             </div>
 
-            <!-- recebe resposta do LocacaoController sobre a disponibilidade do bungalow em termos de data/hospede -->
-            <script>
-                document.addEventListener('DOMContentLoaded', () => {
-                    const form = document.querySelector('#bookModal form');
-                    form.addEventListener('submit', async function(e) {
-                        e.preventDefault();
 
-                        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute(
-                            'content');
-
-                        const data = {
-                            bungalow_id: document.getElementById('bungalow_id').value,
-                            data_inicio: document.getElementById('data_inicio').value,
-                            data_fim: document.getElementById('data_fim').value,
-                            hospedes: document.querySelector('[name="hospedes"]').value,
-                        };
-
-                        try {
-                            const response = await fetch('{{ route('bungalow-pre-reservation') }}', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'X-CSRF-TOKEN': csrfToken
-                                },
-                                body: JSON.stringify(data)
-                            });
-
-                            const result = await response.json();
-
-                            if (response.ok) {
-                                alert('Reserva criada com sucesso! ID: ' + result.reservation.id);
-                                document.getElementById('bookModal').classList.add('hidden');
-                            } else {
-                                alert('Erro: ' + result.message);
-                            }
-
-                        } catch (error) {
-                            alert('Erro na requisição.');
-                            console.error(error);
-                        }
-                    });
-                });
-            </script>
 
 
 

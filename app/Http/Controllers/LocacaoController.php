@@ -6,6 +6,8 @@ use App\Http\Requests\ValidacaoDatas;
 use App\Models\Locacao;
 use App\Services\DisponibilidadeService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class LocacaoController extends Controller
 {
@@ -19,36 +21,39 @@ class LocacaoController extends Controller
     // método para mostrar todas as locações do user
     public function show_user_bookings()
     {
-        if (!function_exists('auth')) {
-        dd('Helper auth() não existe');
-    }
-        $user_id = auth()->id();
+        $user_id = Auth::id();
 
-        $locacoes = Locacao::where('user_id', $user_id)->get();
-        return view('user-bookings', [
-            'locacoes' => $locacoes,
-            'user_id' => $user_id,
-        ]);
+        $locacoes = Locacao::with('bungalow.localizacao')
+            ->where('user_id', $user_id)
+            ->get();
+
+        return view('locacao.user-bookings', ['locacoes' => $locacoes]);
     }
 
     //método de pré-reserva, ao confirmar as datas,guests no modal, faz uma pré-locacao se o bungalow estiver disponível de acordo com os inputs
     public function pre_reservation(ValidacaoDatas $request)
     {
+        //Recebe os dados para passar para a ValidacaoDatas
         $id = $request->input('bungalow_id');
         $dataInicio = $request->input('data_inicio');
         $dataFim = $request->input('data_fim');
         $hospedes = (int) $request->input('hospedes');
 
+
+        //Recebe os valores que vem escondidos no modal
+        $valorTotal = $request->input('valor_total');
+        $valorInicial = $request->input('valor_inicial');
+
+
         if (!$this->disponibilidadeService->obterDisponiveis($id, $dataInicio, $dataFim, $hospedes)) {
             return response()->json(['message' => 'Bungalow indisponível nas datas informadas.'], 422);
         }
 
+
         //retorna para a view transaction(paypal) onde vai acontecer o pagamento e assim confirmar ou não a realização da reserva
         return view('locacao.transaction', [
-            'bungalow_id' => $id,
-            'data_inicio' => $dataInicio,
-            'data_fim' => $dataFim,
-            'hospedes' => $hospedes
+            'valor_total'=> $valorTotal,
+            'valor_inicial'=> $valorInicial,
         ]);
 
 

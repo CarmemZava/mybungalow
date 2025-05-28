@@ -60,7 +60,7 @@
                 <div class="hidden lg:flex gap-x-8 text-[20px] font-semibold text-[#4A575A] justify-center flex-1">
                     <a href="{{ url('/home') }}">Home</a>
                     <a href="{{ route('bungalow.index') }}">Search</a>
-                    <a href="{{route('locacao-all-user-bookings')}}">Bookings</a>
+                    <a href="{{route('locacao.user-bookings')}}">Bookings</a>
                 </div>
 
 
