@@ -28,7 +28,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/show/{id}', [BungalowController::class, 'show_more'])->name('bungalow.show');
 
     //Rotas Locacao:
-    Route::post('/locacao-confirm', [LocacaoController::class, 'store'])->name('bungalow-locacao.store');
+    Route::post('/locacao-pre-reservation', [LocacaoController::class, 'pre_reservation'])->name('bungalow-pre-reservation');
 
     //Rotas pagamento - paypal:
     Route::get('transaction', [PaypalController::class, 'createTransaction'])->name('createTransaction');

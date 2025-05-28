@@ -29,4 +29,8 @@ class DisponibilidadeService
     public function obterEspecifico($id){
         return $this->repositorio->buscarPorId($id);
     }
+
+    public function verificacaoFinalDataHospede($id, $dataInicio, $dataFim, $hospedes): bool{
+        return $this->repositorio->buscarPorId_Data_Hospede($id, $dataInicio, $dataFim, $hospedes);
+    }
 }
