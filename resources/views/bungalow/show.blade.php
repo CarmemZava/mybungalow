@@ -106,10 +106,6 @@
             </p>
 
 
-
-
-
-
             {{-- Detalhes preço e outros associados ao ato de reservar --}}
             <div class="container px-5 py-20 mx-auto">
                 <div class="rounded-lg bg-white shadow-indigo-50 shadow-md p-3 flex flex-col gap-2">

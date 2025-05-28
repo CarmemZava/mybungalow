@@ -4,6 +4,7 @@ use App\Http\Controllers\BungalowController;
 use App\Http\Controllers\LocacaoController;
 use App\Http\Controllers\PaypalController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Locacao;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -29,9 +30,14 @@ Route::middleware('auth')->group(function () {
 
     //Rotas Locacao:
     Route::post('/locacao-pre-reservation', [LocacaoController::class, 'pre_reservation'])->name('bungalow-pre-reservation');
+    //Rota para ver todas as Locacoes do user (histórico):
+    Route::middleware('auth')->get('show-all', [LocacaoController::class, 'show_user_bookings'])->name('user-bookings');
+
+
+
 
     //Rotas pagamento - paypal:
-    Route::get('transaction', [PaypalController::class, 'createTransaction'])->name('createTransaction');
+    Route::get('locacao.transaction', [PaypalController::class, 'createTransaction'])->name('createTransaction');
     Route::get('process-transaction', [PayPalController::class, 'processTransaction'])->name('processTransaction');
     Route::get('success-transaction', [PayPalController::class, 'successTransaction'])->name('successTransaction');
     Route::get('cancel-transaction', [PayPalController::class, 'cancelTransaction'])->name('cancelTransaction');

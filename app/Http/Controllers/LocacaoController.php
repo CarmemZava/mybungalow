@@ -16,6 +16,22 @@ class LocacaoController extends Controller
         $this->disponibilidadeService = $disponibilidadeService;
     }
 
+    // método para mostrar todas as locações do user
+    public function show_user_bookings()
+    {
+        if (!function_exists('auth')) {
+        dd('Helper auth() não existe');
+    }
+        $user_id = auth()->id();
+
+        $locacoes = Locacao::where('user_id', $user_id)->get();
+        return view('user-bookings', [
+            'locacoes' => $locacoes,
+            'user_id' => $user_id,
+        ]);
+    }
+
+    //método de pré-reserva, ao confirmar as datas,guests no modal, faz uma pré-locacao se o bungalow estiver disponível de acordo com os inputs
     public function pre_reservation(ValidacaoDatas $request)
     {
         $id = $request->input('bungalow_id');
@@ -27,13 +43,13 @@ class LocacaoController extends Controller
             return response()->json(['message' => 'Bungalow indisponível nas datas informadas.'], 422);
         }
 
-        return view('locacao.pagamento', [
+        //retorna para a view transaction(paypal) onde vai acontecer o pagamento e assim confirmar ou não a realização da reserva
+        return view('locacao.transaction', [
             'bungalow_id' => $id,
             'data_inicio' => $dataInicio,
             'data_fim' => $dataFim,
             'hospedes' => $hospedes
         ]);
-
 
 
 
