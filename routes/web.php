@@ -39,8 +39,9 @@ Route::middleware('auth')->group(function () {
 
 
     //Rotas locacao pagamento - paypal:
-    Route::get('locacao.transaction', [PaypalController::class, 'escolherPagamento'])->name('locacao.transaction');
+    Route::get('transaction', [PaypalController::class, 'createTransaction'])->name('paypal.transaction');
     Route::get('process-transaction', [PayPalController::class, 'processTransaction'])->name('processTransaction');
+    //Rota pagamento sucesso - confirmação
     Route::get('success-transaction', [PayPalController::class, 'successTransaction'])->name('successTransaction');
     Route::get('cancel-transaction', [PayPalController::class, 'cancelTransaction'])->name('cancelTransaction');
     Route::get('finish-transaction', [PayPalController::class, 'finishTransaction'])->name('finishTransaction');

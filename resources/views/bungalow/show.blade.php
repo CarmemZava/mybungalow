@@ -72,33 +72,43 @@
             <div class="grid grid-cols-8 gap-3 mt-8">
 
                 @php
-                    //Criação de um config que possue todas as características definidas por um title, e ícone
                     $features = config('caracteristicas.bungalow_features');
-                    $bungalowFeatures = [
-                        'aceita_animais',
-                        'estacionamento_privado',
-                        'aquecimento',
-                        'roupa_de_cama',
-                        'tv',
-                        'cozinha_equipada',
-                        'loicas',
-                        'fogao',
-                        'frigorifico',
-                        'microondas',
-                        'wc_com_duche',
-                        'produtos_de_higiene',
-                        'toalhas',
-                        'jardim',
-                        'churrasqueira',
-                        'mobilario_exterior',
-                    ];
+
+                    // Normaliza todas as chaves para facilitar comparação (ex: "Aceita animais" => "aceita_animais")
+                    $normalizedFeatures = [];
+                    foreach ($features as $key => $value) {
+                        $normalizedKey = strtolower(
+                            str_replace(
+                                [' ', 'ç', 'á', 'ã', 'â', 'é', 'ê', 'í', 'ó', 'ô', 'õ', 'ú'],
+                                ['_', 'c', 'a', 'a', 'a', 'e', 'e', 'i', 'o', 'o', 'o', 'u'],
+                                $key,
+                            ),
+                        );
+                        $normalizedFeatures[$normalizedKey] = $value;
+                    }
                 @endphp
 
-
                 @foreach ($bungalow->caracteristicas as $caracteristica)
-                    <div title="{{ $caracteristica->title }}" class="{{ $caracteristica->class }}">
-                        <i class="{{ $caracteristica->icone }}"></i>
-                    </div>
+                    @php
+                        $nomeNormalizado = strtolower(
+                            str_replace(
+                                [' ', 'ç', 'á', 'ã', 'â', 'é', 'ê', 'í', 'ó', 'ô', 'õ', 'ú'],
+                                ['_', 'c', 'a', 'a', 'a', 'e', 'e', 'i', 'o', 'o', 'o', 'u'],
+                                $caracteristica->nome,
+                            ),
+                        );
+                    @endphp
+
+                    @if (array_key_exists($nomeNormalizado, $normalizedFeatures))
+                        <div title="{{ $normalizedFeatures[$nomeNormalizado]['title'] }}"
+                            class="{{ $normalizedFeatures[$nomeNormalizado]['class'] }}">
+                            <i class="{{ $normalizedFeatures[$nomeNormalizado]['icone'] }}"></i>
+                        </div>
+                    @else
+                        <div>
+                            Característica não encontrada: {{ $caracteristica->nome }}
+                        </div>
+                    @endif
                 @endforeach
 
             </div>
@@ -154,7 +164,6 @@
 
                     let total = dias * preco_diario;
                     saida.textContent = total.toFixed(2) + " €";
-
                     return total;
 
                 }
@@ -167,6 +176,7 @@
                     }
                     let inicial = total * 0.1;
                     saida2.textContent = inicial.toFixed(2) + " €";
+                    return inicial;
                 }
 
                 // Chamada automática para aparecer o valor ao abrir a show view
@@ -180,8 +190,11 @@
                 PagamentoInicial(totalCalculado);
 
                 // Passar os dados para o modal que vai carregar estes para a próxima view
-                document.getElementById('input_total').value = totalCalculado.toFixed(2);
-                document.getElementById('input_inicial').value = (totalCalculado * 0.1).toFixed(2);
+                function abrirModal(valorTotal, valorInicial) {
+                    document.getElementById('total').value = valorTotal.toFixed(2);
+                    document.getElementById('inicial').value = valorInicial.toFixed(2);
+                    document.getElementById('bookModal').classList.remove('hidden');
+                }
             </script>
 
 
@@ -190,23 +203,19 @@
             <div id="bookModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
                 <div class="bg-white p-6 rounded shadow-lg w-full max-w-md relative">
                     <h2 class="text-2xl font-bold mb-4">Confirm your booking details</h2>
+
                     <form method="POST" action="{{ route('bungalow-pre-reservation') }}">
                         @csrf
                         <!-- input do id do bungalow escondido para passar para o LocacaoController -->
                         <input type="hidden" name="bungalow_id" id="bungalow_id" value="{{ $bungalow->id }}">
-                        {{-- Valor total e 10% vão ser também passados como hidden --}}
-                        <input type="hidden" id="total_input" name="total" value="{{ $valorTotal }}">
-                        <input type="hidden" id="inicial_input" name="inicial" value="{{ $valorInicial }}">
                         <label class="text-[20px] font-semibold text-[#4A575A]">{{ $bungalow->modelo }}</label>
                         <label class="block mb-2">Check-in:</label>
                         <label for="data_inicio"></label>
                         <input type="date" name="data_inicio" id="data_inicio" value="{{ request('data_inicio') }}"
                             min="{{ date('Y-m-d') }}" class="border rounded px-3 py-2 w-full mb-4" required />
-
                         <label class="block mb-2">Check-out:</label>
                         <input type="date" name="data_fim" value="{{ $dataFim }}" min="{{ date('Y-m-d') }}"
                             class="border rounded px-3 py-2 w-full mb-4" required>
-
                         <label class="block mb-2">Guests:</label>
                         <input type="text" name="hospedes" value="{{ $hospedes }}"
                             class="border rounded px-3 py-2 w-full mb-4" required>
@@ -218,17 +227,6 @@
                     </form>
                 </div>
             </div>
-
-
-
-
-
-
-
-
-
-
-
 
 
         </div>

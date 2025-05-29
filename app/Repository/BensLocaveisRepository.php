@@ -34,9 +34,10 @@ class BensLocaveisRepository
             ->orderBy('numero_hospedes', 'asc');
     }
 
+
     public function buscarPorId($id)
     {
-        return Bungalow::with(['marca', 'localizacao'])->findOrFail($id);
+        return Bungalow::with(['marca', 'localizacao', 'caracteristicas'])->findOrFail($id);
 
     }
 

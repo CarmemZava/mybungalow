@@ -57,6 +57,7 @@ class BungalowController extends Controller
 
 
         $bungalow = $this->disponibilidadeService->obterEspecifico($id);
+        
         return view(
             'bungalow.show',
             [

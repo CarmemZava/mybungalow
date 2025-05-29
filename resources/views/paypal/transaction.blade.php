@@ -3,6 +3,19 @@
 @section('content')
     <div class="bg-gray-100 min-h-screen pt-6 flex items-start justify-center">
         <div class="flex flex-wrap justify-center gap-6 max-w-7xl w-full px-4">
+
+            {{-- FORM QUE O CHAT SUGERIU --}}
+            <form action="{{ route('processTransaction') }}" method="POST">
+                @csrf
+                <input type="hidden" name="bungalow_id" value="{{ $bungalow_id }}">
+                <input type="hidden" name="data_inicio" value="{{ $data_inicio }}">
+                <input type="hidden" name="data_fim" value="{{ $data_fim }}">
+                <input type="hidden" name="hospedes" value="{{ $hospedes }}">
+                <input type="hidden" name="valor_total" value="{{ $valor_total }}">
+                <input type="hidden" name="valor_inicial" value="{{ $valor_inicial }}">
+                <button type="submit">Pagar com PayPal</button>
+            </form>
+
             <!-- Pagamento 100% -->
             <div
                 class="bg-white rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 max-w-sm w-full">
@@ -13,7 +26,7 @@
                         width="180">
                     <h2 class="text-3xl font-bold text-gray-800 mb-4">Pay the Full Price</h2>
                     <p class="text-gray-600 mb-6">Get 5% of descount in your next MyBungalow.</p>
-                    <p class="text-4xl font-bold text-gray-800 mb-6">$19.99</p>
+                    <p class="text-4xl font-bold text-gray-800 mb-6">{{ $valor_total }}</p>
                     <ul class="text-sm text-gray-600 mb-6">
                         <li class="mb-2 flex items-center">
                             <svg class="w-4 h-4 mr-2 text-green-500" fill="none" stroke="currentColor"
@@ -59,7 +72,7 @@
                         width="180">
                     <h2 class="text-3xl font-bold text-gray-800 mb-4">Pay 10% upfront</h2>
                     <p class="text-gray-600 mb-6">The remaining payment is due the day before your check-in.</p>
-                    <p class="text-4xl font-bold text-gray-800 mb-6">$99.99</p>
+                    <p class="text-4xl font-bold text-gray-800 mb-6">{{ $valor_inicial }}</p>
                     <ul class="text-sm text-gray-600 mb-6">
                         <li class="mb-2 flex items-center">
                             <svg class="w-4 h-4 mr-2 text-green-500" fill="none" stroke="currentColor"

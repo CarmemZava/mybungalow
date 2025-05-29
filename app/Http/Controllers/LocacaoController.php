@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ValidacaoDatas;
+use App\Models\Bungalow;
 use App\Models\Locacao;
 use App\Services\DisponibilidadeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use function Laravel\Prompts\alert;
 
 class LocacaoController extends Controller
 {
@@ -33,6 +35,7 @@ class LocacaoController extends Controller
     //método de pré-reserva, ao confirmar as datas,guests no modal, faz uma pré-locacao se o bungalow estiver disponível de acordo com os inputs
     public function pre_reservation(ValidacaoDatas $request)
     {
+
         //Recebe os dados para passar para a ValidacaoDatas
         $id = $request->input('bungalow_id');
         $dataInicio = $request->input('data_inicio');
@@ -40,21 +43,34 @@ class LocacaoController extends Controller
         $hospedes = (int) $request->input('hospedes');
 
 
-        //Recebe os valores que vem escondidos no modal
-        $valorTotal = $request->input('valor_total');
-        $valorInicial = $request->input('valor_inicial');
+        //Calculo dos valores com os inputs recebidos do modal
+        $dias = (new \DateTime($dataInicio))->diff(new \DateTime($dataFim))->days;
 
 
-        if (!$this->disponibilidadeService->obterDisponiveis($id, $dataInicio, $dataFim, $hospedes)) {
-            return response()->json(['message' => 'Bungalow indisponível nas datas informadas.'], 422);
+        //busca do preco do bungalow_id
+        $bungalow = Bungalow::findOrFail($id);
+        $preco_diario = $bungalow->preco_diario;
+
+        $valorTotal = $dias * $preco_diario;
+        $valorInicial = $valorTotal * 0.1;
+
+        if (!$this->disponibilidadeService->verificacaoFinalDataHospede($id, $dataInicio, $dataFim, $hospedes)) {
+            return redirect()->back()
+                ->withErrors(['erro' => 'Datas indisponíveis para este bungalow.'])
+                ->withInput();
         }
 
-
-        //retorna para a view transaction(paypal) onde vai acontecer o pagamento e assim confirmar ou não a realização da reserva
-        return view('locacao.transaction', [
-            'valor_total'=> $valorTotal,
-            'valor_inicial'=> $valorInicial,
+        return view('paypal.transaction', [
+            'valor_total' => $valorTotal,
+            'valor_inicial' => $valorInicial,
+            'data_inicio' => $dataInicio,
+            'data_fim' => $dataFim,
+            'hospedes' => $hospedes,
+            'bungalow_id' => $id,
         ]);
+
+
+
 
 
 

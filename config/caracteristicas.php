@@ -3,91 +3,91 @@
 return [
     'bungalow_features' => [
 
-        'aceita_animais' => [
+        'Aceita animais' => [
             'title' => 'Pet-friendly',
             'class' => 'cursor-pointer rounded-full border border-gray-900/5 bg-gray-900/5 p-4 w-12 h-12 flex items-center justify-center text-gray-900 transition-colors hover:border-gray-900/10 hover:bg-gray-900/10 hover:!opacity-100 group-hover:opacity-70',
             'icone' => 'fa-solid fa-paw',
         ],
 
-        'estacionamento_privado' => [
+        'Estacionamento privado' => [
             'title' => 'Private parking',
             'class' => 'cursor-pointer rounded-full border border-gray-900/5 bg-gray-900/5 p-4 w-12 h-12 flex items-center justify-center text-gray-900 transition-colors hover:border-gray-900/10 hover:bg-gray-900/10 hover:!opacity-100 group-hover:opacity-70',
             'icone' => 'fa-solid fa-car',
         ],
 
-        'aquecimento' => [
+        'Aquecimento' => [
             'title' => 'Heating',
             'class' => 'cursor-pointer rounded-full border border-gray-900/5 bg-gray-900/5 p-4 w-12 h-12 flex items-center justify-center text-gray-900 transition-colors hover:border-gray-900/10 hover:bg-gray-900/10 hover:!opacity-100 group-hover:opacity-70',
             'icone' => 'fa-solid fa-fire',
         ],
 
-        'roupa_de_cama' => [
+        'Roupas de cama' => [
             'title' => 'Bedding',
             'class' => 'cursor-pointer rounded-full border border-gray-900/5 bg-gray-900/5 p-4 w-12 h-12 flex items-center justify-center text-gray-900 transition-colors hover:border-gray-900/10 hover:bg-gray-900/10 hover:!opacity-100 group-hover:opacity-70',
             'icone' => 'fa-solid fa-bed',
         ],
 
-        'tv' => [
+        'TV satélite' => [
             'title' => 'TV',
             'class' => 'cursor-pointer rounded-full border border-gray-900/5 bg-gray-900/5 p-4 w-12 h-12 flex items-center justify-center text-gray-900 transition-colors hover:border-gray-900/10 hover:bg-gray-900/10 hover:!opacity-100 group-hover:opacity-70',
             'icone' => 'fa-solid fa-tv',
         ],
 
-        'cozinha_equipada' => [
+        'Cozinha Equipada' => [
             'title' => 'Kitchen supplies',
             'class' => 'cursor-pointer rounded-full border border-gray-900/5 bg-gray-900/5 p-4 w-12 h-12 flex items-center justify-center text-gray-900 transition-colors hover:border-gray-900/10 hover:bg-gray-900/10 hover:!opacity-100 group-hover:opacity-70',
             'icone' => 'fa-solid fa-utensils',
         ],
 
-        'loicas' => [
+        'Loicas' => [
             'title' => 'Plates and utensils',
             'class' => 'cursor-pointer rounded-full border border-gray-900/5 bg-gray-900/5 p-4 w-12 h-12 flex items-center justify-center text-gray-900 transition-colors hover:border-gray-900/10 hover:bg-gray-900/10 hover:!opacity-100 group-hover:opacity-70',
             'icone' => 'fa-solid fa-kitchen-set',
         ],
 
-        'fogao' => [
+        'Fogao' => [
             'title' => 'Stove',
             'class' => 'cursor-pointer rounded-full border border-gray-900/5 bg-gray-900/5 p-4 w-12 h-12 flex items-center justify-center text-gray-900 transition-colors hover:border-gray-900/10 hover:bg-gray-900/10 hover:!opacity-100 group-hover:opacity-70',
             'icone' => 'fa-solid fa-fire-burner',
         ],
 
-        'frigorifico' => [
+        'Frigorifico' => [
             'title' => 'Refrigerator',
             'class' => 'cursor-pointer rounded-full border border-gray-900/5 bg-gray-900/5 p-4 w-12 h-12 flex items-center justify-center text-gray-900 transition-colors hover:border-gray-900/10 hover:bg-gray-900/10 hover:!opacity-100 group-hover:opacity-70',
             'icone' => 'fa-regular fa-refrigerator',
         ],
 
-        'microondas' => [
+        'Microondas' => [
             'title' => 'Microwave',
             'class' => 'cursor-pointer rounded-full border border-gray-900/5 bg-gray-900/5 p-4 w-12 h-12 flex items-center justify-center text-gray-900 transition-colors hover:border-gray-900/10 hover:bg-gray-900/10 hover:!opacity-100 group-hover:opacity-70',
             'icone' => 'fa-solid fa-wave-square',
         ],
 
-        'wc_com_duche' => [
+        'Wc com duche' => [
             'title' => 'Bathroom with shower',
             'class' => 'cursor-pointer rounded-full border border-gray-900/5 bg-gray-900/5 p-4 w-12 h-12 flex items-center justify-center text-gray-900 transition-colors hover:border-gray-900/10 hover:bg-gray-900/10 hover:!opacity-100 group-hover:opacity-70',
             'icone' => 'fa-solid fa-shower',
         ],
 
-        'produtos_de_higiene' => [
+        'Produtos de higiene' => [
             'title' => 'Hygiene products',
             'class' => 'cursor-pointer rounded-full border border-gray-900/5 bg-gray-900/5 p-4 w-12 h-12 flex items-center justify-center text-gray-900 transition-colors hover:border-gray-900/10 hover:bg-gray-900/10 hover:!opacity-100 group-hover:opacity-70',
             'icone' => 'fa-solid fa-pump-soap',
         ],
 
-        'toalhas' => [
+        'Toalhas' => [
             'title' => 'Towels',
             'class' => 'cursor-pointer rounded-full border border-gray-900/5 bg-gray-900/5 p-4 w-12 h-12 flex items-center justify-center text-gray-900 transition-colors hover:border-gray-900/10 hover:bg-gray-900/10 hover:!opacity-100 group-hover:opacity-70',
             'icone' => 'fa-solid fa-bath',
         ],
 
-        'jardim' => [
+        'Jardim' => [
             'title' => 'Garden',
             'class' => 'cursor-pointer rounded-full border border-gray-900/5 bg-gray-900/5 p-4 w-12 h-12 flex items-center justify-center text-gray-900 transition-colors hover:border-gray-900/10 hover:bg-gray-900/10 hover:!opacity-100 group-hover:opacity-70',
             'icone' => 'fa-solid fa-tree',
         ],
 
-        'churrasqueira' => [
+        'Churrasqueira' => [
             'title' => 'Barbecue grill',
             'class' => 'cursor-pointer rounded-full border border-gray-900/5 bg-gray-900/5 p-4 w-12 h-12 flex items-center justify-center text-gray-900 transition-colors hover:border-gray-900/10 hover:bg-gray-900/10 hover:!opacity-100 group-hover:opacity-70',
             'icone' => 'fa-solid fa-drumstick-bite',

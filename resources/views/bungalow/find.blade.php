@@ -89,9 +89,10 @@
 
 
         </div>
+
         <!-- Paginação -->
         <div class="flex justify-center mt-4 mr-6">
-            {{ $bungalows->links() }}
+            {{ $bungalows->appends(request()->query())->links() }}
         </div>
     </div>
 
