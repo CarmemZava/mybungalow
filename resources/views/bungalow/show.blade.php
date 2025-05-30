@@ -3,9 +3,8 @@
 
 @section('content')
     <div class="w-full flex justify-center pt-0">
-        <div
-            class="relative mx-10 overflow-hidden text-white rounded-xl bg-blue-gray-500 bg-clip-border max-w-3xl max-h-full shadow-none">
-            <img class="w-[700px] h-[525px] object-cover" src="{{ asset($bungalow->imagem) }}" />
+        <div class="relative mx-10 text-white rounded-xl bg-blue-gray-500 bg-clip-border max-w-3xl max-h-full shadow-none">
+            <img class="w-[700px] h-[525px] object-cover rounded-xl" src="{{ asset($bungalow->imagem) }}" />
             <button
                 class="!absolute top-4 right-4 h-8 max-h-[32px] w-8 max-w-[32px] select-none rounded-full text-center align-middle font-sans text-xs font-medium uppercase text-red-500 transition-all hover:bg-red-500/10 active:bg-red-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                 type="button">
@@ -19,6 +18,7 @@
             </button>
         </div>
         <div class="p-6">
+
             {{-- Detalhes sobre modelo, marca e localização --}}
             <div class="flex items-center justify-between mb-3">
                 <h5 class="hidden lg:flex gap-x-8 text-[20px] font-semibold text-[#4A575A] justify-center">
@@ -60,7 +60,7 @@
             </div>
             <br>
 
-            {{-- Características mostradas por ícone/cursor --}}
+            {{-- Características mostradas por ícone/cursor, foram definidas no ficheiro config.caracteristicas --}}
             <p class="flex items-center gap-2">
             <div class="flex items-center text-gray-700 gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" fill="none" viewBox="0 0 24 24"
@@ -74,7 +74,6 @@
                 @php
                     $features = config('caracteristicas.bungalow_features');
 
-                    // Normaliza todas as chaves para facilitar comparação (ex: "Aceita animais" => "aceita_animais")
                     $normalizedFeatures = [];
                     foreach ($features as $key => $value) {
                         $normalizedKey = strtolower(
@@ -115,9 +114,10 @@
             </p>
 
 
+
             {{-- Detalhes preço e outros associados ao ato de reservar --}}
-            <div class="container px-5 py-20 mx-auto">
-                <div class="rounded-lg bg-white shadow-indigo-50 shadow-md p-3 flex flex-col gap-2">
+            <div class="container px-1 py-20 mx-auto">
+                <div class="rounded-lg bg-white shadow-indigo-10 shadow-md p-3 flex flex-col gap-2">
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-4 font-sans text-xl font-medium text-blue-gray-900">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500" fill="none"
@@ -136,69 +136,17 @@
                             Book now!
                         </button>
                     </div>
-
-                    <h3 class="text-xl font-bold text-indigo-500 text-left" id="total"></h3>
+                    <h3 class="text-xl font-bold text-indigo-500 text-left">{{ $dadosBusca['total'] }}€</h3>
                     <div>
-                        <p class="text-sm font-semibold text-gray-400" id="inicial"></p>
+                        <p class="text-sm font-semibold text-gray-400">{{ $dadosBusca['inicial'] }}€</p>
                         <p class="text-sm font-semibold text-gray-400">(Down payment: 10% of the total)</p>
                     </div>
-
                 </div>
             </div>
 
-            {{-- Cálculo Pagamento total e 10% de entrada --}}
-            <script>
-                function PagamentoTotal(preco_diario, dataInicio, dataFim, hospedes) {
-                    let saida = document.getElementById("total");
-
-                    let inicio = new Date(dataInicio);
-                    let fim = new Date(dataFim);
-
-                    let segundos = fim - inicio;
-                    let dias = segundos / (1000 * 60 * 60 * 24);
-
-                    if (dias <= 0) {
-                        saida.textContent = "Datas inválidas";
-                        return null;
-                    }
-
-                    let total = dias * preco_diario;
-                    saida.textContent = total.toFixed(2) + " €";
-                    return total;
-
-                }
-
-                function PagamentoInicial(total) {
-                    let saida2 = document.getElementById("inicial");
-                    if (total === null) {
-                        saida2.textContent = "";
-                        return;
-                    }
-                    let inicial = total * 0.1;
-                    saida2.textContent = inicial.toFixed(2) + " €";
-                    return inicial;
-                }
-
-                // Chamada automática para aparecer o valor ao abrir a show view
-                let totalCalculado = PagamentoTotal(
-                    {{ $bungalow->preco_diario }},
-                    "{{ $dataInicio }}",
-                    "{{ $dataFim }}",
-                    {{ $hospedes }}
-                );
-
-                PagamentoInicial(totalCalculado);
-
-                // Passar os dados para o modal que vai carregar estes para a próxima view
-                function abrirModal(valorTotal, valorInicial) {
-                    document.getElementById('total').value = valorTotal.toFixed(2);
-                    document.getElementById('inicial').value = valorInicial.toFixed(2);
-                    document.getElementById('bookModal').classList.remove('hidden');
-                }
-            </script>
 
 
-
+            {{-- Nova rota e método para o modal --}}
             <!-- Modal, vai servir de formulário para Confimação de Dados e passa para a view de pagamento -->
             <div id="bookModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
                 <div class="bg-white p-6 rounded shadow-lg w-full max-w-md relative">
@@ -206,19 +154,26 @@
 
                     <form method="POST" action="{{ route('bungalow-pre-reservation') }}">
                         @csrf
-                        <!-- input do id do bungalow escondido para passar para o LocacaoController -->
-                        <input type="hidden" name="bungalow_id" id="bungalow_id" value="{{ $bungalow->id }}">
                         <label class="text-[20px] font-semibold text-[#4A575A]">{{ $bungalow->modelo }}</label>
-                        <label class="block mb-2">Check-in:</label>
-                        <label for="data_inicio"></label>
-                        <input type="date" name="data_inicio" id="data_inicio" value="{{ request('data_inicio') }}"
-                            min="{{ date('Y-m-d') }}" class="border rounded px-3 py-2 w-full mb-4" required />
-                        <label class="block mb-2">Check-out:</label>
-                        <input type="date" name="data_fim" value="{{ $dataFim }}" min="{{ date('Y-m-d') }}"
-                            class="border rounded px-3 py-2 w-full mb-4" required>
-                        <label class="block mb-2">Guests:</label>
-                        <input type="text" name="hospedes" value="{{ $hospedes }}"
-                            class="border rounded px-3 py-2 w-full mb-4" required>
+
+                        @if (session()->has('dados-busca-inicial'))
+                            @php
+                                $dadosAtualizados = session('dados-busca-inicial');
+                            @endphp
+
+                            <label class="block mb-2">Check-in:</label>
+                            <input type="date" name="data_inicio" value="{{ $dadosAtualizados['data_inicio'] ?? '' }}"
+                                min="{{ date('Y-m-d') }}" required class="border rounded px-3 py-2 w-full mb-4" />
+
+                            <label class="block mb-2">Check-out:</label>
+                            <input type="date" name="data_fim" id="data_fim"
+                                value="{{ $dadosAtualizados['data_fim'] }}" class="border rounded px-3 py-2 w-full mb-4"
+                                required />
+
+                            <label class="block mb-2">Guests:</label>
+                            <input type="text" name="hospedes" value="{{ $dadosAtualizados['hospedes'] }}"
+                                class="border rounded px-3 py-2 w-full mb-4" required />
+                        @endif
 
                         <button type="submit"
                             class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition">
@@ -228,8 +183,68 @@
                 </div>
             </div>
 
+            {{-- INCLUIR UMA NOTA DIREITINHA  --}}
+            {{-- Mensagem de erro se não estiver disponível nas datas selecionadas no modal --}}
+            @if ($errors->has('disponibilidade'))
+                <div class="alert alert-danger">
+                    {{ $errors->first('disponibilidade') }}
+                </div>
+            @endif
+
+
 
         </div>
 
     </div>
+
+    {{-- Cálculo Pagamento total e 10% de entrada --}}
+    {{-- <script>
+        function PagamentoTotal(preco_diario, dataInicio, dataFim, hospedes) {
+            let saida = document.getElementById("total");
+
+            let inicio = new Date(dataInicio);
+            let fim = new Date(dataFim);
+
+            let segundos = fim - inicio;
+            let dias = segundos / (1000 * 60 * 60 * 24);
+
+            if (dias <= 0) {
+                saida.textContent = "Datas inválidas";
+                return null;
+            }
+
+            let total = dias * preco_diario;
+            saida.textContent = total.toFixed(2) + " €";
+            return total;
+
+        }
+
+        function PagamentoInicial(total) {
+            let saida2 = document.getElementById("inicial");
+            if (total === null) {
+                saida2.textContent = "";
+                return;
+            }
+            let inicial = total * 0.1;
+            saida2.textContent = inicial.toFixed(2) + " €";
+            return inicial;
+        }
+
+        // Chamada automática para aparecer o valor ao abrir a show view
+        let totalCalculado = PagamentoTotal(
+            {{ $bungalow->preco_diario }},
+            "{{ $dataInicio }}",
+            "{{ $dataFim }}",
+            {{ $hospedes }}
+        );
+
+        PagamentoInicial(totalCalculado);
+
+        // Passar os dados para o modal que vai carregar estes para a próxima view
+        function abrirModal(valorTotal, valorInicial) {
+            document.getElementById('total').value = valorTotal.toFixed(2);
+            document.getElementById('inicial').value = valorInicial.toFixed(2);
+            document.getElementById('bookModal').classList.remove('hidden');
+        }
+    </script> --}}
 @endsection

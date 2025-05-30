@@ -47,7 +47,7 @@
     <div class="bg-white">
         <header class="fixed inset-x-0 top-0 z-50 bg-white shadow">
             <nav class="flex items-center justify-between p-3 lg:px-8" aria-label="Global">
-                <div class="flex items-center lg:flex-1 space-x-1">
+                <div class="flex items-center lg:w-1/3 space-x-1">
                     <a href="#" class="-m-1.5 p-1.5">
                         {{-- logo --}}
                         <img class="h-8 w-auto" src="{{ asset('images/logo/logo-bungalow2.png') }}" alt="logo"
@@ -57,45 +57,48 @@
                     <h1 style="color: #4A575A" class="sacramento-regular">My</h1>
                     <h1 style="color:#7E84F2" class="sacramento-regular">Bungalow</h1>
                 </div>
-                <div class="hidden lg:flex gap-x-8 text-[20px] font-semibold text-[#4A575A] justify-center flex-1">
+                <div class="hidden lg:flex justify-center lg:w-1/3 gap-x-8 text-[20px] font-semibold text-[#4A575A]">
                     <a href="{{ url('/home') }}">Home</a>
                     <a href="{{ route('bungalow.index') }}">Search</a>
-                    <a href="{{route('locacao.user-bookings')}}">Bookings</a>
+                    <a href="{{ route('locacao.user-bookings') }}">Bookings</a>
                 </div>
 
 
-                <!-- Autenticação do Laravel -->
-                <x-dropdown align="right" width="48">
-                    <x-slot name="trigger">
-                        <button
-                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
-                            <div>{{ Auth::user()->name }}</div>
+                <div class="lg:w-1/3 flex justify-end">
+                    <!-- Autenticação do Laravel -->
+                    <x-dropdown align="right" width="48">
+                        <x-slot name="trigger">
+                            <button
+                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
+                                <div>{{ Auth::user()->name }}</div>
 
-                            <div class="ms-1">
-                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd"
-                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                        </button>
-                    </x-slot>
-                    <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-
-                            <x-dropdown-link :href="route('logout')"
-                                onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                                {{ __('Log Out') }}
+                                <div class="ms-1">
+                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                            </button>
+                        </x-slot>
+                        <x-slot name="content">
+                            <x-dropdown-link :href="route('profile.edit')">
+                                {{ __('Profile') }}
                             </x-dropdown-link>
-                        </form>
-                    </x-slot>
-                </x-dropdown>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+
+                                <x-dropdown-link :href="route('logout')"
+                                    onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                                    {{ __('Log Out') }}
+                                </x-dropdown-link>
+                            </form>
+                        </x-slot>
+                    </x-dropdown>
+                </div>
+
 
             </nav>
         </header>

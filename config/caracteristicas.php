@@ -54,7 +54,7 @@ return [
         'Frigorifico' => [
             'title' => 'Refrigerator',
             'class' => 'cursor-pointer rounded-full border border-gray-900/5 bg-gray-900/5 p-4 w-12 h-12 flex items-center justify-center text-gray-900 transition-colors hover:border-gray-900/10 hover:bg-gray-900/10 hover:!opacity-100 group-hover:opacity-70',
-            'icone' => 'fa-regular fa-refrigerator',
+            'icone' => 'fa-solid fa-box',
         ],
 
         'Microondas' => [

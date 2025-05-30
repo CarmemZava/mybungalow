@@ -4,6 +4,16 @@
 
 
 @section('content')
+
+    {{-- Dados da session --}}
+    @php
+        $dadosBusca = session('dados-busca-inicial', []);
+        $dataInicio = old('data_inicio', request('data_inicio', $dadosBusca['data_inicio'] ?? ''));
+        $dataFim = old('data_fim', request('data_fim', $dadosBusca['data_fim'] ?? ''));
+        $hospedes = old('hospedes', request('hospedes', $dadosBusca['hospedes'] ?? ''));
+    @endphp
+
+
     <div class="flex gap-x-1">
         <!-- CRIAR FUNCAO ALERT PARA GARANTIR QUE OS INPUTS SERAO ADICIONADOS -->
         <div class="w-fit mx-auto bg-white rounded-lg shadow-xl flex flex-row gap-4 p-4 items-center">
@@ -13,7 +23,7 @@
                 <div class="relative inline-flex items-center px-3.5 py-2 gap-2 text-gray-400 group rounded-md bg-white">
                     <label for="data_fim" class="font-medium">Check-in:</label>
                     <input type="date" name="data_inicio" id="data_inicio" min="{{ date('Y-m-d') }}"
-                        value="{{ old('data_inicio', request('data_inicio')) }}"
+                        value="{{ $dataInicio }}"
                         class="text-sm text-gray-700 bg-transparent focus:outline-none @error('data_inicio') border border-red-500 @enderror" />
 
                     @error('data_inicio')
@@ -30,7 +40,7 @@
                 <div class="relative inline-flex items-center px-3.5 py-2 gap-2 text-gray-400 group rounded-md bg-white">
                     <label for="data_fim" class="font-medium">Check-out:</label>
                     <input type="date" name="data_fim" id="data_fim" min="{{ date('Y-m-d') }}"
-                        value="{{ old('data_fim', request('data_fim')) }}"
+                        value="{{ $dataFim }}"
                         class="text-sm text-gray-700 bg-transparent focus:outline-none @error('data_fim') border border-red-500 @enderror" />
 
                     @error('data_fim')
@@ -109,7 +119,8 @@
             @endphp
 
             <a href="{{ $url }}" class="block py-6 cursor-pointer">
-                <div class="bg-white shadow-2xl rounded-lg tracking-wide hover:shadow-3xl transition-shadow duration-300 mt-8">
+                <div
+                    class="bg-white shadow-2xl rounded-lg tracking-wide hover:shadow-3xl transition-shadow duration-300 mt-8">
                     <img src="{{ asset($bungalow->imagem) }}" alt="Imagem do Bungalow" style="width: 300px; height: 250px;"
                         class="block mx-auto">
                     <div class="px-4 py-2 mt-2">

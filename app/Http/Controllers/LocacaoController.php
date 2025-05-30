@@ -32,67 +32,63 @@ class LocacaoController extends Controller
         return view('locacao.user-bookings', ['locacoes' => $locacoes]);
     }
 
-    //método de pré-reserva, ao confirmar as datas,guests no modal, faz uma pré-locacao se o bungalow estiver disponível de acordo com os inputs
-    public function pre_reservation(ValidacaoDatas $request)
+    //método de pré-reserva, novas datas incluídas no modal, antes da pagina de pagamento
+    public function recalcularReserva(ValidacaoDatas $request)
     {
+        //novas datas para validação/calculos
+        $novoInicio = $request->input('data_inicio');
+        $novoFim = $request->input('data_fim');
+        $novohospedes = (int) $request->input('hospedes');
 
-        //Recebe os dados para passar para a ValidacaoDatas
-        $id = $request->input('bungalow_id');
-        $dataInicio = $request->input('data_inicio');
-        $dataFim = $request->input('data_fim');
-        $hospedes = (int) $request->input('hospedes');
+        //buscar bungalow/id pelo session
+        $dadosAtualizados = session('dados-busca-inicial');
+        $id = $dadosAtualizados['bungalow_id'];
 
+        //nova validação de disponibilidade -> se não disponível, volta para a página e manda mensagem de erro
+        $disponivel = $this->disponibilidadeService->verificacaoFinalDataHospede($id, $novoInicio, $novoFim, $novohospedes);
 
-        //Calculo dos valores com os inputs recebidos do modal
-        $dias = (new \DateTime($dataInicio))->diff(new \DateTime($dataFim))->days;
-
-
-        //busca do preco do bungalow_id
-        $bungalow = Bungalow::findOrFail($id);
-        $preco_diario = $bungalow->preco_diario;
-
-        $valorTotal = $dias * $preco_diario;
-        $valorInicial = $valorTotal * 0.1;
-
-        if (!$this->disponibilidadeService->verificacaoFinalDataHospede($id, $dataInicio, $dataFim, $hospedes)) {
+        if (!$disponivel) {
+            // Se não disponível, volta para o form ou página anterior com mensagem de erro
             return redirect()->back()
-                ->withErrors(['erro' => 'Datas indisponíveis para este bungalow.'])
-                ->withInput();
+                ->withInput()  // mantém os dados no form
+                ->withErrors(['disponibilidade' => 'Bungalow indisponível para as datas ou número de hóspedes selecionados.']);
         }
 
-        return view('paypal.transaction', [
-            'valor_total' => $valorTotal,
-            'valor_inicial' => $valorInicial,
-            'data_inicio' => $dataInicio,
-            'data_fim' => $dataFim,
-            'hospedes' => $hospedes,
+
+        //novos cálculos de pagamento
+        $bungalow = Bungalow::findOrFail($id);
+        $preco_diario = $bungalow->preco_diario;
+        $dias = (new \DateTime($novoInicio))->diff(new \DateTime($novoFim))->days;
+        $novoTotal = $dias * $preco_diario;
+        $novoInicial = $novoTotal * 0.1;
+
+        //Limpar session antiga
+        //session()->forget('dados-busca-inicial');
+        //session()->forget('dados-busca-atualizada');
+
+        //nova session com os dados finais
+        $dadosFinais = [
             'bungalow_id' => $id,
-        ]);
+            'data_inicio' => $novoInicio,
+            'data_fim' => $novoFim,
+            'hospedes' => $novohospedes,
+            'total' => $novoTotal,
+            'inicial' => $novoInicial,
+        ];
+        session(['dados-busca-final' => $dadosFinais]);
 
-
-
-
-
-
-        /* Esta estapa vai acontecer no pagamento
-
-        $reserva = Locacao::create(
-            'bungalow_id',
-            'data_inicio',
-            'data_fim',
-            'hospedes',
-
+        return view(
+            'paypal.transaction',
+            [
+                'dados-busca-final' => $dadosFinais
+            ]
         );
-*/
     }
 
 
     public function index()
     {
-        //PRECISO DE CRIAR AS RELAÇÕES ENTRE OS USERS E LOCACOES, NA VIEW TESTE EU FAÇO UM FORM GET, TALVEZ ESSA INFO TENHA QUEM FICAR NO SHOW E NAO NO INDEX COMO ESTÁ
-        //$locacoes=Locacao::all();
-
-        //return view('bungalow.teste', compact('locacoes'));
+        //
     }
 
     /**

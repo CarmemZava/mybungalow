@@ -35,36 +35,52 @@ class BungalowController extends Controller
         //dataInicio, dataFim e hospedes já validados pelo ValidacaoDatas
         $dataInicio = $request->input('data_inicio');
         $dataFim = $request->input('data_fim');
-
         $hospedes = (int) $request->input('hospedes');
+
+        session(['dados-busca-inicial' => [
+            'data_inicio' => $dataInicio,
+            'data_fim' => $dataFim,
+            'hospedes' => $hospedes,
+        ]]);
 
         $query = $this->disponibilidadeService->obterDisponiveis($dataInicio, $dataFim, $hospedes);
         $bungalows = $query->paginate(8);
 
         return view('bungalow.find', [
             'bungalows' => $bungalows,
-            'dataInicio' => $dataInicio,
-            'dataFim' => $dataFim,
-            'hospedes' => $hospedes,
         ]);
     }
 
-    public function show_more($id, Request $request)
+    public function show_more($id)
     {
-        $dataInicio = $request->query('data_inicio');
-        $dataFim = $request->query('data_fim');
-        $hospedes = $request->query('hospedes');
+        //buscar dados da session
+        $dadosBusca = session('dados-busca-inicial', []);
+        $dataInicio = $dadosBusca['data_inicio'] ?? null;
+        $dataFim = $dadosBusca['data_fim'] ?? null;
+        $hospedes = $dadosBusca['hospedes'] ?? null;
 
+        //Cálculo Preço 10% e total
+        $bungalow = Bungalow::findOrFail($id);
+        $preco_diario = $bungalow->preco_diario;
+        $dias = (new \DateTime($dataInicio))->diff(new \DateTime($dataFim))->days;
+        $valorTotal = $dias * $preco_diario;
+        $valorInicial = $valorTotal * 0.1;
 
-        $bungalow = $this->disponibilidadeService->obterEspecifico($id);
-        
+        // Adiciona os novos valores a session dados-busca-inicial e altera para novo nome
+        $dadosAtualizados = array_merge($dadosBusca, [
+            'bungalow_id' => $bungalow->id,
+            'total' => $valorTotal,
+            'inicial' => $valorInicial,
+        ]);
+
+        // A variável com a session atualizada agora chama $dadosAtualizados
+        session(['dados-busca-inicial' => $dadosAtualizados]);
+
         return view(
             'bungalow.show',
             [
                 'bungalow' => $bungalow,
-                'dataInicio' => $dataInicio,
-                'dataFim' => $dataFim,
-                'hospedes' => $hospedes
+                'dadosBusca' => $dadosAtualizados,
             ]
         );
     }

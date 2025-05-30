@@ -31,7 +31,7 @@ Route::middleware('auth')->group(function () {
 
     //################  Rotas Locacao:
     //Rota pré-locacao, modal de confirmação de datas e hospedes:
-    Route::post('/locacao/pre-reservation', [LocacaoController::class,'pre_reservation'])->name('bungalow-pre-reservation');
+    Route::post('/locacao/pre-reservation', [LocacaoController::class,'recalcularReserva'])->name('bungalow-pre-reservation');
     //Rota para ver todas as Locacoes do user (histórico):
     Route::get('/user/bookings', [LocacaoController::class, 'show_user_bookings'])->name('locacao.user-bookings');
 
@@ -39,7 +39,7 @@ Route::middleware('auth')->group(function () {
 
 
     //Rotas locacao pagamento - paypal:
-    Route::get('transaction', [PaypalController::class, 'createTransaction'])->name('paypal.transaction');
+    Route::get('/transaction', [PaypalController::class, 'createTransaction'])->name('paypal.transaction');
     Route::get('process-transaction', [PayPalController::class, 'processTransaction'])->name('processTransaction');
     //Rota pagamento sucesso - confirmação
     Route::get('success-transaction', [PayPalController::class, 'successTransaction'])->name('successTransaction');
