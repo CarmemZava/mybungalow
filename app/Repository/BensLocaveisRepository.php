@@ -38,10 +38,9 @@ class BensLocaveisRepository
     public function buscarPorId($id)
     {
         return Bungalow::with(['marca', 'localizacao', 'caracteristicas'])->findOrFail($id);
-
     }
 
-    public function buscarPorId_Data_Hospede($id, $dataInicio, $dataFim, $hospedes): bool
+    public function buscarPorId_Data_Hospede($id, $novoInicio, $novoFim, $novohospedes): bool
     {
         $bungalow = $this->find($id);
 
@@ -49,21 +48,18 @@ class BensLocaveisRepository
             return false;
         }
 
-        if ($bungalow->numero_hospedes < $hospedes) {
+        if ($bungalow->numero_hospedes < $novohospedes) {
             return false;
         }
 
-        $disponibilidade = Locacao::where('bungalow_id', $id)
-            ->where(function ($query) use ($dataInicio, $dataFim) {
-                $query->whereBetween('start_date', [$dataInicio, $dataFim])
-                    ->orWhereBetween('end_date', [$dataInicio, $dataFim])
-                    ->orWhere(function ($q) use ($dataInicio, $dataFim) {
-                        $q->where('start_date', '<=', $dataInicio)
-                            ->where('end_date', '>=', $dataFim);
-                    });
+        $indisponivel = Locacao::where('bem_locavel_id', $id)
+            ->where(function ($query) use ($novoInicio, $novoFim) {
+                $query->where('data_inicio', '<=', $novoInicio)
+                    ->where('data_fim', '>=', $novoFim);
             })
-            ->count();
-        return $disponibilidade === 0;
+            ->exists();
+
+        return $indisponivel;
     }
 
 

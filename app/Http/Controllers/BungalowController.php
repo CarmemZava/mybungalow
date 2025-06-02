@@ -73,14 +73,16 @@ class BungalowController extends Controller
             'inicial' => $valorInicial,
         ]);
 
+        session()->forget('dados-busca-inicial');
+
         // A variável com a session atualizada agora chama $dadosAtualizados
-        session(['dados-busca-inicial' => $dadosAtualizados]);
+        session(['dados-busca-final' => $dadosAtualizados]);
 
         return view(
             'bungalow.show',
             [
                 'bungalow' => $bungalow,
-                'dadosBusca' => $dadosAtualizados,
+                'dados-busca-final' => $dadosAtualizados,
             ]
         );
     }

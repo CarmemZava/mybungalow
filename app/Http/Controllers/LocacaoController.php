@@ -9,7 +9,6 @@ use App\Services\DisponibilidadeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-use function Laravel\Prompts\alert;
 
 class LocacaoController extends Controller
 {
@@ -41,19 +40,20 @@ class LocacaoController extends Controller
         $novohospedes = (int) $request->input('hospedes');
 
         //buscar bungalow/id pelo session
-        $dadosAtualizados = session('dados-busca-inicial');
+        $dadosAtualizados = session('dados-busca-final');
         $id = $dadosAtualizados['bungalow_id'];
 
+
         //nova validação de disponibilidade -> se não disponível, volta para a página e manda mensagem de erro
-        $disponivel = $this->disponibilidadeService->verificacaoFinalDataHospede($id, $novoInicio, $novoFim, $novohospedes);
+        $indisponivel = $this->disponibilidadeService->verificacaoFinalDataHospede($id, $novoInicio, $novoFim, $novohospedes);
 
-        if (!$disponivel) {
-            // Se não disponível, volta para o form ou página anterior com mensagem de erro
+        dd($indisponivel);
+        //Erro caso não tenha disponibilidade
+        if ($indisponivel) {
             return redirect()->back()
-                ->withInput()  // mantém os dados no form
-                ->withErrors(['disponibilidade' => 'Bungalow indisponível para as datas ou número de hóspedes selecionados.']);
+                ->withInput()
+                ->withErrors(['indisponibilidade' => '']);
         }
-
 
         //novos cálculos de pagamento
         $bungalow = Bungalow::findOrFail($id);
@@ -62,9 +62,6 @@ class LocacaoController extends Controller
         $novoTotal = $dias * $preco_diario;
         $novoInicial = $novoTotal * 0.1;
 
-        //Limpar session antiga
-        //session()->forget('dados-busca-inicial');
-        //session()->forget('dados-busca-atualizada');
 
         //nova session com os dados finais
         $dadosFinais = [

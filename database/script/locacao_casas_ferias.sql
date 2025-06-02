@@ -24,6 +24,7 @@ CREATE TABLE bens_locaveis (
     manutencao BOOLEAN DEFAULT TRUE,
     preco_diario DECIMAL(10,2),
     observacao VARCHAR(200),
+    imagem VARCHAR(255),
     FOREIGN KEY (marca_id) REFERENCES marca(id)
 );
 
@@ -57,25 +58,28 @@ INSERT INTO marca (id, tipo_bem_id, nome, observacao) VALUES
 (2, 2, 'Luxo', 'Com piscina privativa e vista panorâmica.'),
 (3, 2, 'Familiar', 'Espaço para até 6 pessoas, ideal para famílias.');
 
+-- Adicionei a coluna Imagem
+
 INSERT INTO bens_locaveis (
-    marca_id, modelo, registo_unico_publico, numero_quartos, numero_hospedes, numero_casas_banho, numero_camas, ano, manutencao, preco_diario, observacao
-) VALUES 
-(1, 'Brisa Marítima', '10001/22', 3, 6, 2, 3, 2020, FALSE, 75.00, ''),
-(1, 'Paraíso Solar', '10002/23', 4, 8, 2, 4, 2021, FALSE, 85.00, ''),
-(2, 'Encanto Azul', '10003/21', 5, 10, 3, 5, 2019, FALSE, 160.00, ''),
-(2, 'Mirante Celestial', '10004/24', 3, 6, 2, 3, 2024, FALSE, 155.00, ''),
-(3, 'Recanto Natural', '10005/20', 4, 8, 2, 4, 2020, FALSE, 210.00, ''),
-(3, 'Beira Litorânea', '10006/23', 5, 10, 3, 5, 2021, FALSE, 220.00, ''),
-(1, 'Brisa Costeira', '10007/22', 2, 4, 1, 2, 2018, FALSE, 70.00, ''),
-(2, 'Serenidade Verde', '10008/21', 3, 6, 2, 3, 2020, FALSE, 145.00, ''),
-(3, 'Retiro Silvestre', '10009/22', 4, 8, 2, 4, 2019, FALSE, 205.00, ''),
-(1, 'Refúgio Revigorante', '10010/23', 2, 4, 1, 2, 2022, FALSE, 90.00, ''),
-(1, 'Recanto Silvestre', '10011/20', 3, 6, 2, 3, 2020, FALSE, 95.00, ''),
-(2, 'Brisa da Montanha', '10012/24', 4, 8, 2, 4, 2023, FALSE, 165.00, ''),
-(2, 'Encanto Natural', '10013/21', 3, 6, 2, 3, 2021, FALSE, 170.00, ''),
-(3, 'Sol e Ondas', '10014/22', 5, 10, 3, 5, 2019, FALSE, 215.00, ''),
-(3, 'Pôr do Sol Dourado', '10015/23', 4, 8, 2, 4, 2022, FALSE, 195.00, ''),
-(1, 'Refúgio Sereno', '10016/20', 2, 4, 1, 2, 2020, FALSE, 78.00, '');
+    marca_id, modelo, registo_unico_publico, numero_quartos, numero_hospedes, numero_casas_banho, numero_camas, ano, manutencao, preco_diario, observacao, imagem
+) VALUES
+(1, 'Brisa Marítima', '10001/22', 3, 6, 2, 3, 2020, FALSE, 75.00, '','images/find/Bunga14.jpg'),
+(1, 'Paraíso Solar', '10002/23', 4, 8, 2, 4, 2021, FALSE, 85.00, '','images/find/Bunga13.jpg'),
+(2, 'Encanto Azul', '10003/21', 5, 10, 3, 5, 2019, FALSE, 160.00, '','images/find/Bunga7.jpg'),
+(2, 'Mirante Celestial', '10004/24', 3, 6, 2, 3, 2024, FALSE, 155.00, '','images/find/Bunga16.jpg'),
+(3, 'Recanto Natural', '10005/20', 4, 8, 2, 4, 2020, FALSE, 210.00, '','images/find/Bunga3.jpg'),
+(3, 'Beira Litorânea', '10006/23', 5, 10, 3, 5, 2021, FALSE, 220.00, '','images/find/Bunga6.jpg'),
+(1, 'Brisa Costeira', '10007/22', 2, 4, 1, 2, 2018, FALSE, 70.00, '','images/find/Bunga9.jpg'),
+(2, 'Serenidade Verde', '10008/21', 3, 6, 2, 3, 2020, FALSE, 145.00, '','images/find/Bunga5.jpg'),
+(3, 'Retiro Silvestre', '10009/22', 4, 8, 2, 4, 2019, FALSE, 205.00, '','images/find/Bunga10.jpg'),
+(1, 'Refúgio Revigorante', '10010/23', 2, 4, 1, 2, 2022, FALSE, 90.00, '','images/find/Bunga12.jpg'),
+(1, 'Recanto Silvestre', '10011/20', 3, 6, 2, 3, 2020, FALSE, 95.00, '','images/find/Bunga8.jpg'),
+(2, 'Brisa da Montanha', '10012/24', 4, 8, 2, 4, 2023, FALSE, 165.00, '','images/find/Bunga15.jpg'),
+(2, 'Encanto Natural', '10013/21', 3, 6, 2, 3, 2021, FALSE, 170.00, '','images/find/Bunga11.jpg'),
+(3, 'Sol e Ondas', '10014/22', 5, 10, 3, 5, 2019, FALSE, 215.00, '','images/find/Bunga4.jpg'),
+(3, 'Pôr do Sol Dourado', '10015/23', 4, 8, 2, 4, 2022, FALSE, 195.00, '','images/find/Bunga1.jpg'),
+(1, 'Refúgio Sereno', '10016/20', 2, 4, 1, 2, 2020, FALSE, 78.00, '','images/find/Bunga2.jpg');
+
 
 INSERT INTO localizacoes (bem_locavel_id, cidade, filial, posicao) VALUES
 (1, 'Albufeira', 'Praia da Oura', 'Casa 1'),
@@ -95,7 +99,7 @@ INSERT INTO localizacoes (bem_locavel_id, cidade, filial, posicao) VALUES
 (15, 'Albufeira', 'Praia da Oura', 'Casa 5'),
 (16, 'Setúbal', 'Parque Natural da Arrábida', 'Casa Miradouro 3');
 
-INSERT INTO caracteristicas (nome) VALUES 
+INSERT INTO caracteristicas (nome) VALUES
 ('TV satélite'),
 ('Aquecimento'),
 ('Roupas de cama'),

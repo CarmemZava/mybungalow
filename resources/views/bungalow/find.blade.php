@@ -15,7 +15,6 @@
 
 
     <div class="flex gap-x-1">
-        <!-- CRIAR FUNCAO ALERT PARA GARANTIR QUE OS INPUTS SERAO ADICIONADOS -->
         <div class="w-fit mx-auto bg-white rounded-lg shadow-xl flex flex-row gap-4 p-4 items-center">
             <form id="find" method="GET" action="{{ route('bungalow.find') }}" class="flex flex-row gap-4 items-center">
 
@@ -122,7 +121,7 @@
                 <div
                     class="bg-white shadow-2xl rounded-lg tracking-wide hover:shadow-3xl transition-shadow duration-300 mt-8">
                     <img src="{{ asset($bungalow->imagem) }}" alt="Imagem do Bungalow" style="width: 300px; height: 250px;"
-                        class="block mx-auto">
+                        class="block mx-auto rounded-lg">
                     <div class="px-4 py-2 mt-2">
                         <h2 class="hidden lg:flex gap-x-8 text-[20px] font-semibold text-[#4A575A] justify-center">
                             {{ $bungalow->modelo }}</h2>

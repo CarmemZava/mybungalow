@@ -16,6 +16,32 @@
                     </svg>
                 </span>
             </button>
+
+            {{-- Alerta de erro em caso de alteração de datas e falta de disponibilidade --}}
+            @if ($errors->has('indisponibilidade'))
+                <div class="flex flex-col items-center mt-8" id="error-alert">
+                    <div role="alert"
+                        class="relative flex w-full border rounded-md p-2 border-[#7E84F2] text-white items-center"
+                        style="background-color: #7E84F2;">
+                        <span class="grid place-items-center shrink-0 p-1">
+                            <svg width="1.5em" height="1.5em" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg" color="currentColor" class="h-5 w-5">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M1.25 12C1.25 6.06294 6.06294 1.25 12 1.25C17.9371 1.25 22.75 6.06294 22.75 12C22.75 17.9371 17.9371 22.75 12 22.75C6.06294 22.75 1.25 17.9371 1.25 12ZM12 6.25C12.4142 6.25 12.75 6.58579 12.75 7V13C12.75 13.4142 12.4142 13.75 12 13.75C11.5858 13.75 11.25 13.4142 11.25 13V7C11.25 6.58579 11.5858 6.25 12 6.25ZM12.5675 17.5008C12.8446 17.1929 12.8196 16.7187 12.5117 16.4416C12.2038 16.1645 11.7296 16.1894 11.4525 16.4973L11.4425 16.5084C11.1654 16.8163 11.1904 17.2905 11.4983 17.5676C11.8062 17.8447 12.2804 17.8197 12.5575 17.5119L12.5675 17.5008Z"
+                                    fill="currentColor"></path>
+                            </svg>
+                        </span>
+                        <div class="w-full text-sm font-sans leading-none m-1.5">
+                            Sorry, these dates are already booked.
+                        </div>
+                        <button onclick="document.getElementById('error-alert').remove()"
+                            class="ml-auto inline-flex items-center justify-center px-3 py-1 text-sm font-medium rounded-md bg-white text-[#7E84F2] hover:bg-gray-100 transition">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            @endif
+
         </div>
         <div class="p-6">
 
@@ -116,38 +142,41 @@
 
 
             {{-- Detalhes preço e outros associados ao ato de reservar --}}
-            <div class="container px-1 py-20 mx-auto">
-                <div class="rounded-lg bg-white shadow-indigo-10 shadow-md p-3 flex flex-col gap-2">
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-4 font-sans text-xl font-medium text-blue-gray-900">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
-                                <rect x="2" y="7" width="20" height="10" rx="2" ry="2"
-                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
-                                <line x1="2" y1="11" x2="22" y2="11" stroke-linecap="round"
-                                    stroke-linejoin="round" stroke-width="2" />
-                            </svg>
-                            <span>Total</span>
+            @if (session()->has('dados-busca-final'))
+                @php
+                    $dadosAtualizados = session('dados-busca-final');
+                @endphp
+                <div class="container px-1 py-20 mx-auto">
+                    <div class="rounded-lg bg-white shadow-indigo-10 shadow-md p-3 flex flex-col gap-2">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-4 font-sans text-xl font-medium text-blue-gray-900">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <rect x="2" y="7" width="20" height="10" rx="2" ry="2"
+                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                                    <line x1="2" y1="11" x2="22" y2="11" stroke-linecap="round"
+                                        stroke-linejoin="round" stroke-width="2" />
+                                </svg>
+                                <span>Total</span>
+                            </div>
+                            <button
+                                class="flex items-center gap-2 rounded border border-[#7E84F2] px-6 py-2 text-sm font-semibold text-[#7E84F2] transition-all hover:bg-[#7E84F2] hover:text-white hover:shadow-lg active:scale-95 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                                type="button" id="bookNow"
+                                onclick="document.getElementById('bookModal').classList.remove('hidden')">
+                                Book now!
+                            </button>
                         </div>
-                        <button
-                            class="flex items-center gap-2 rounded border border-[#7E84F2] px-6 py-2 text-sm font-semibold text-[#7E84F2] transition-all hover:bg-[#7E84F2] hover:text-white hover:shadow-lg active:scale-95 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                            type="button" id="bookNow"
-                            onclick="document.getElementById('bookModal').classList.remove('hidden')">
-                            Book now!
-                        </button>
-                    </div>
-                    <h3 class="text-xl font-bold text-indigo-500 text-left">{{ $dadosBusca['total'] }}€</h3>
-                    <div>
-                        <p class="text-sm font-semibold text-gray-400">{{ $dadosBusca['inicial'] }}€</p>
-                        <p class="text-sm font-semibold text-gray-400">(Down payment: 10% of the total)</p>
+                        <h3 class="text-xl font-bold text-indigo-500 text-left">{{ $dadosAtualizados['total'] }}€</h3>
+                        <div>
+                            <p class="text-sm font-semibold text-gray-400">{{ $dadosAtualizados['inicial'] }}€</p>
+                            <p class="text-sm font-semibold text-gray-400">(Down payment: 10% of the total)</p>
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endif
 
 
-
-            {{-- Nova rota e método para o modal --}}
-            <!-- Modal, vai servir de formulário para Confimação de Dados e passa para a view de pagamento -->
+            {{-- Mostrar o modal com as datas já escolhidas, e possibilidade de alterá-las --}}
             <div id="bookModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
                 <div class="bg-white p-6 rounded shadow-lg w-full max-w-md relative">
                     <h2 class="text-2xl font-bold mb-4">Confirm your booking details</h2>
@@ -155,23 +184,32 @@
                     <form method="POST" action="{{ route('bungalow-pre-reservation') }}">
                         @csrf
                         <label class="text-[20px] font-semibold text-[#4A575A]">{{ $bungalow->modelo }}</label>
-
-                        @if (session()->has('dados-busca-inicial'))
-                            @php
-                                $dadosAtualizados = session('dados-busca-inicial');
-                            @endphp
-
+                        @if (!empty($dadosAtualizados))
                             <label class="block mb-2">Check-in:</label>
-                            <input type="date" name="data_inicio" value="{{ $dadosAtualizados['data_inicio'] ?? '' }}"
-                                min="{{ date('Y-m-d') }}" required class="border rounded px-3 py-2 w-full mb-4" />
+                            <input type="date" name="data_inicio"
+                                value="{{ $dadosAtualizados['data_inicio'] ?? '' }}" min="{{ date('Y-m-d') }}" required
+                                class="border rounded px-3 py-2 w-full mb-4" />
 
                             <label class="block mb-2">Check-out:</label>
-                            <input type="date" name="data_fim" id="data_fim"
-                                value="{{ $dadosAtualizados['data_fim'] }}" class="border rounded px-3 py-2 w-full mb-4"
-                                required />
+                            <input type="date" name="data_fim" value="{{ $dadosAtualizados['data_fim'] ?? '' }}"
+                                min="{{ $dadosAtualizados['data_inicio'] ?? date('Y-m-d') }}" required
+                                class="border rounded px-3 py-2 w-full mb-4" />
 
                             <label class="block mb-2">Guests:</label>
-                            <input type="text" name="hospedes" value="{{ $dadosAtualizados['hospedes'] }}"
+                            <input type="number" name="hospedes" value="{{ $dadosAtualizados['hospedes'] ?? 1 }}"
+                                min="1" class="border rounded px-3 py-2 w-full mb-4" required />
+                        @else
+                            {{-- Caso não existam dados, podes mostrar inputs vazios ou valores default --}}
+                            <label class="block mb-2">Check-in:</label>
+                            <input type="date" name="data_inicio" min="{{ date('Y-m-d') }}" required
+                                class="border rounded px-3 py-2 w-full mb-4" />
+
+                            <label class="block mb-2">Check-out:</label>
+                            <input type="date" name="data_fim" min="{{ date('Y-m-d') }}" required
+                                class="border rounded px-3 py-2 w-full mb-4" />
+
+                            <label class="block mb-2">Guests:</label>
+                            <input type="number" name="hospedes" min="1" value="1"
                                 class="border rounded px-3 py-2 w-full mb-4" required />
                         @endif
 
@@ -183,19 +221,16 @@
                 </div>
             </div>
 
-            {{-- INCLUIR UMA NOTA DIREITINHA  --}}
-            {{-- Mensagem de erro se não estiver disponível nas datas selecionadas no modal --}}
-            @if ($errors->has('disponibilidade'))
-                <div class="alert alert-danger">
-                    {{ $errors->first('disponibilidade') }}
-                </div>
-            @endif
+
+
 
 
 
         </div>
 
     </div>
+
+
 
     {{-- Cálculo Pagamento total e 10% de entrada --}}
     {{-- <script>
