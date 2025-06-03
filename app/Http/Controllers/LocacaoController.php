@@ -47,12 +47,12 @@ class LocacaoController extends Controller
         //nova validação de disponibilidade -> se não disponível, volta para a página e manda mensagem de erro
         $indisponivel = $this->disponibilidadeService->verificacaoFinalDataHospede($id, $novoInicio, $novoFim, $novohospedes);
 
-        dd($indisponivel);
+
         //Erro caso não tenha disponibilidade
         if ($indisponivel) {
             return redirect()->back()
                 ->withInput()
-                ->withErrors(['indisponibilidade' => '']);
+                ->withErrors(['indisponibilidade' => 'Sorry, these dates are already booked.']);
         }
 
         //novos cálculos de pagamento

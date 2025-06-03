@@ -3,8 +3,6 @@
 @section('content')
     <div class="bg-gray-100 min-h-screen pt-6 flex items-start justify-center">
         <div class="flex flex-wrap justify-center gap-6 max-w-7xl w-full px-4">
-
-
             @if (session()->has('dados-busca-final'))
                 @php
                     $dadosFinais = session('dados-busca-final');
@@ -51,12 +49,16 @@
                         </ul>
                     </div>
                     <div class="p-4">
-                        <button
-                            class="w-full bg-blue-500 text-white rounded-full px-4 py-2 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
-                            Pay now
-                        </button>
+                        <a href="{{ route('processTransaction', ['amount' => $dadosFinais['total']]) }}"
+                            class="block py-6 cursor-pointer">
+                            <button type="submit"
+                                class="w-full bg-blue-500 text-white rounded-full px-4 py-2 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
+                                Pay now
+                            </button>
+                        </a>
                     </div>
                 </div>
+
 
                 <!-- Pagamento 10% -->
                 <div
@@ -100,13 +102,21 @@
                         </ul>
                     </div>
                     <div class="p-4">
-                        <button
-                            class="w-full bg-purple-500 text-white rounded-full px-4 py-2 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple active:bg-purple-800">
-                            Pay now
-                        </button>
+                        <a href="{{ route('processTransaction', ['amount' => $dadosFinais['inicial']]) }}"
+                            class="block py-6 cursor-pointer">
+                            <button type="submit"
+                                class="w-full bg-blue-500 text-white rounded-full px-4 py-2 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
+                                Pay now
+                            </button>
+                        </a>
                     </div>
                 </div>
             @endif
         </div>
     </div>
+
+    <!-- SDK do PayPal com sua Client ID e moeda EUR -->
+    <script
+        src="https://www.sandbox.paypal.com/sdk/js?client-id={{ config('paypal.sandbox.client_id') }}&currency=EUR&intent=capture">
+    </script>
 @endsection

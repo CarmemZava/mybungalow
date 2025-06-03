@@ -44,7 +44,7 @@ Route::middleware('auth')->group(function () {
     //Rota pagamento sucesso - confirmação
     Route::get('success-transaction', [PayPalController::class, 'successTransaction'])->name('successTransaction');
     Route::get('cancel-transaction', [PayPalController::class, 'cancelTransaction'])->name('cancelTransaction');
-    Route::get('finish-transaction', [PayPalController::class, 'finishTransaction'])->name('finishTransaction');
+    Route::get('finish-transaction', [PayPalController::class, 'finishTransaction'])->name('paypal.finishTransaction');
 });
 
 

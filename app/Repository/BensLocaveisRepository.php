@@ -53,9 +53,10 @@ class BensLocaveisRepository
         }
 
         $indisponivel = Locacao::where('bem_locavel_id', $id)
+            ->where('status', 'reservado')
             ->where(function ($query) use ($novoInicio, $novoFim) {
-                $query->where('data_inicio', '<=', $novoInicio)
-                    ->where('data_fim', '>=', $novoFim);
+                $query->where('data_inicio', '<=', $novoFim)
+                            ->where('data_fim', '>=', $novoInicio);
             })
             ->exists();
 

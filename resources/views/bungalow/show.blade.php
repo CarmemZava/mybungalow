@@ -220,66 +220,7 @@
                     </form>
                 </div>
             </div>
-
-
-
-
-
-
         </div>
-
     </div>
 
-
-
-    {{-- Cálculo Pagamento total e 10% de entrada --}}
-    {{-- <script>
-        function PagamentoTotal(preco_diario, dataInicio, dataFim, hospedes) {
-            let saida = document.getElementById("total");
-
-            let inicio = new Date(dataInicio);
-            let fim = new Date(dataFim);
-
-            let segundos = fim - inicio;
-            let dias = segundos / (1000 * 60 * 60 * 24);
-
-            if (dias <= 0) {
-                saida.textContent = "Datas inválidas";
-                return null;
-            }
-
-            let total = dias * preco_diario;
-            saida.textContent = total.toFixed(2) + " €";
-            return total;
-
-        }
-
-        function PagamentoInicial(total) {
-            let saida2 = document.getElementById("inicial");
-            if (total === null) {
-                saida2.textContent = "";
-                return;
-            }
-            let inicial = total * 0.1;
-            saida2.textContent = inicial.toFixed(2) + " €";
-            return inicial;
-        }
-
-        // Chamada automática para aparecer o valor ao abrir a show view
-        let totalCalculado = PagamentoTotal(
-            {{ $bungalow->preco_diario }},
-            "{{ $dataInicio }}",
-            "{{ $dataFim }}",
-            {{ $hospedes }}
-        );
-
-        PagamentoInicial(totalCalculado);
-
-        // Passar os dados para o modal que vai carregar estes para a próxima view
-        function abrirModal(valorTotal, valorInicial) {
-            document.getElementById('total').value = valorTotal.toFixed(2);
-            document.getElementById('inicial').value = valorInicial.toFixed(2);
-            document.getElementById('bookModal').classList.remove('hidden');
-        }
-    </script> --}}
 @endsection
