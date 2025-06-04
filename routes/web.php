@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BungalowController;
+use App\Http\Controllers\DownloadPDF;
 use App\Http\Controllers\LocacaoController;
 use App\Http\Controllers\PaypalController;
 use App\Http\Controllers\ProfileController;
@@ -16,6 +17,7 @@ Route::get('/home', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -42,9 +44,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/transaction', [PaypalController::class, 'createTransaction'])->name('paypal.transaction');
     Route::get('process-transaction', [PayPalController::class, 'processTransaction'])->name('processTransaction');
     //Rota pagamento sucesso - confirmação
-    Route::get('success-transaction', [PayPalController::class, 'successTransaction'])->name('successTransaction');
+    Route::get('success-transaction/{amount}', [PayPalController::class, 'successTransaction'])->name('successTransaction');
     Route::get('cancel-transaction', [PayPalController::class, 'cancelTransaction'])->name('cancelTransaction');
     Route::get('finish-transaction', [PayPalController::class, 'finishTransaction'])->name('paypal.finishTransaction');
+
+    //Rota download booking details
+    Route::get('/print', [DownloadPDF::class, 'downloadArquivoPdf'])->name('locacao.print');
 });
 
 

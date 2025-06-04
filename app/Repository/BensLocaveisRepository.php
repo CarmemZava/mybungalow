@@ -40,18 +40,15 @@ class BensLocaveisRepository
         return Bungalow::with(['marca', 'localizacao', 'caracteristicas'])->findOrFail($id);
     }
 
-    public function buscarPorId_Data_Hospede($id, $novoInicio, $novoFim, $novohospedes): bool
+    //Buscar o bungalow com o valor de id
+    public function buscarBungalow($id)
     {
-        $bungalow = $this->find($id);
+        return Bungalow::find($id);
+    }
 
-        if (!$bungalow) {
-            return false;
-        }
-
-        if ($bungalow->numero_hospedes < $novohospedes) {
-            return false;
-        }
-
+    //Verificar a disponibilidade das novas datas inseridas no modal
+    public function buscarPorId_Data_Hospede($id, $novoInicio, $novoFim): bool
+    {
         $indisponivel = Locacao::where('bem_locavel_id', $id)
             ->where('status', 'reservado')
             ->where(function ($query) use ($novoInicio, $novoFim) {

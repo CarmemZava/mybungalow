@@ -43,10 +43,10 @@ class LocacaoController extends Controller
         $dadosAtualizados = session('dados-busca-final');
         $id = $dadosAtualizados['bungalow_id'];
 
-
         //nova validação de disponibilidade -> se não disponível, volta para a página e manda mensagem de erro
         $indisponivel = $this->disponibilidadeService->verificacaoFinalDataHospede($id, $novoInicio, $novoFim, $novohospedes);
 
+        // dd($id, $novoInicio, $novoFim, $novohospedes, $indisponivel);
 
         //Erro caso não tenha disponibilidade
         if ($indisponivel) {
@@ -61,7 +61,6 @@ class LocacaoController extends Controller
         $dias = (new \DateTime($novoInicio))->diff(new \DateTime($novoFim))->days;
         $novoTotal = $dias * $preco_diario;
         $novoInicial = $novoTotal * 0.1;
-
 
         //nova session com os dados finais
         $dadosFinais = [

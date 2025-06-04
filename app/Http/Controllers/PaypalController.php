@@ -35,7 +35,7 @@ class PaypalController extends Controller
     public function processTransaction(Request $request)
     {
         //Valor de total ou inicial -> vem pelo url a partir do transaction
-         $amount = $request->query('amount');
+        $amount = $request->query('amount');
 
         //Guardar este valor na session 'dados-busca-final'
         $dadosFinais = session('dados-busca-final', []);
@@ -44,7 +44,8 @@ class PaypalController extends Controller
 
         $response = $this->payPalService->createOrder(
             route('successTransaction', ['amount' => $amount]),
-            route('cancelTransaction')
+            route('cancelTransaction'),
+            $amount
         );
 
         if (isset($response['id']) && $response['id'] != null) {
@@ -106,6 +107,14 @@ class PaypalController extends Controller
                 'preco_total' => $precoTotal,
                 'status' => 'reservado',
             ]);
+
+            $locacao_id = $locacao->id;
+
+            //Guardar o id da locacao na session 'dados-busca-final'
+            $dadosFinais = session('dados-busca-final', []);
+            $dadosFinais['locacao_id'] = $locacao_id;
+            session(['dados-busca-final' => $dadosFinais]);
+
 
             return redirect()->route('paypal.finishTransaction', [
                 'amount' => $amount,

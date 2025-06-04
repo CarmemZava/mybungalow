@@ -27,7 +27,7 @@ class PayPalService
      * @param string $currency
      * @return array
      */
-    public function createOrder($returnUrl, $cancelUrl, $amount = 1.00, $currency = 'EUR')
+    public function createOrder($returnUrl, $cancelUrl, $amount, $currency = 'EUR')
     {
         $response = $this->provider->createOrder([
             "intent" => "CAPTURE",

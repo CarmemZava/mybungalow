@@ -140,7 +140,6 @@
             </p>
 
 
-
             {{-- Detalhes preço e outros associados ao ato de reservar --}}
             @if (session()->has('dados-busca-final'))
                 @php
@@ -199,7 +198,7 @@
                             <input type="number" name="hospedes" value="{{ $dadosAtualizados['hospedes'] ?? 1 }}"
                                 min="1" class="border rounded px-3 py-2 w-full mb-4" required />
                         @else
-                            {{-- Caso não existam dados, podes mostrar inputs vazios ou valores default --}}
+                            {{-- Caso não tenha dados, preenche vazio --}}
                             <label class="block mb-2">Check-in:</label>
                             <input type="date" name="data_inicio" min="{{ date('Y-m-d') }}" required
                                 class="border rounded px-3 py-2 w-full mb-4" />
