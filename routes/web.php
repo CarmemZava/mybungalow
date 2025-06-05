@@ -5,6 +5,8 @@ use App\Http\Controllers\DownloadPDF;
 use App\Http\Controllers\LocacaoController;
 use App\Http\Controllers\PaypalController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SendBookingMail;
+use App\Http\Controllers\SendBookingMailController;
 use App\Models\Locacao;
 use Illuminate\Support\Facades\Route;
 
@@ -50,6 +52,8 @@ Route::middleware('auth')->group(function () {
 
     //Rota download booking details
     Route::get('/print', [DownloadPDF::class, 'downloadArquivoPdf'])->name('locacao.print');
+    //Rota enviar e-mail com booking details
+    Route::post('/mail', [SendBookingMailController::class,'sendReservationEmail'])->name('locacao.mail');
 });
 
 

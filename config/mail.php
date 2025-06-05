@@ -112,7 +112,7 @@ return [
 
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'carmem.zavattieri.298335670@msft.cesae.pt'),
-        'name' => env('MAIL_FROM_NAME', 'Demo'),
+        'name' => env('MAIL_FROM_NAME', 'Bungalow'),
     ],
 
 
