@@ -22,10 +22,11 @@ class PaypalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createTransaction()
-    {
-        return view('paypal.transaction');
-    }
+    
+    // public function createTransaction()
+    // {
+    //     return view('paypal.transaction');
+    // }
 
     /**
      * Processa a transação

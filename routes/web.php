@@ -40,8 +40,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/user/bookings', [LocacaoController::class, 'show_user_bookings'])->name('locacao.user-bookings');
 
 
-
-
     //Rotas locacao pagamento - paypal:
     Route::get('/transaction', [PaypalController::class, 'createTransaction'])->name('paypal.transaction');
     Route::get('process-transaction', [PayPalController::class, 'processTransaction'])->name('processTransaction');
@@ -50,6 +48,7 @@ Route::middleware('auth')->group(function () {
     Route::get('cancel-transaction', [PayPalController::class, 'cancelTransaction'])->name('cancelTransaction');
     Route::get('finish-transaction', [PayPalController::class, 'finishTransaction'])->name('paypal.finishTransaction');
 
+    
     //Rota download booking details
     Route::get('/print', [DownloadPDF::class, 'downloadArquivoPdf'])->name('locacao.print');
     //Rota enviar e-mail com booking details
