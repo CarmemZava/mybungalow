@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         //Seeder criado com o meu Registro
-        $this->call(Users::class);
+        //$this->call(Users::class);
 
         //factory de User fake
         User::factory(10)->create();
